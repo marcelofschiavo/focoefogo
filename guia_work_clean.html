@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trabalhe com Organização — Dan Charnas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#0A0907;--bg2:#121009;--bgc:#1B1914;--bgh:#232019;
+  --gold:#C9A84C;--gl:#DFC070;--gp:#F0DFA0;
+  --cream:#F4EFE6;--cd:#C8BFB0;--mut:#7A7268;
+  --cop:#C27B50;--div:rgba(201,168,76,.12);--divs:rgba(201,168,76,.3);
+  --sw:272px;--tr:.35s cubic-bezier(.4,0,.2,1)
+}
+body{background:var(--bg);color:var(--cream);font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;line-height:1.7;display:flex;min-height:100vh}
+.sidebar{position:fixed;top:0;left:0;width:var(--sw);height:100vh;background:var(--bg2);border-right:1px solid var(--div);overflow-y:auto;z-index:100;display:flex;flex-direction:column}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--divs);border-radius:2px}
+.shead{padding:28px 22px 20px;border-bottom:1px solid var(--div)}
+.se{font-family:"Lexend",sans-serif;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.st{font-family:"Playfair Display",serif;font-size:17px;font-weight:700;line-height:1.2;color:var(--cream)}
+.sa{font-family:"Lexend",sans-serif;font-size:10px;color:var(--mut);margin-top:5px}
+.nl{list-style:none;padding:12px 0;flex:1}
+.nsl{font-family:"Lexend",sans-serif;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);padding:10px 22px 3px}
+.nl a{display:flex;align-items:center;gap:9px;padding:6px 22px;font-family:"Lexend",sans-serif;font-size:11.5px;color:var(--cd);text-decoration:none;transition:var(--tr);border-left:2px solid transparent;line-height:1.35}
+.nl a:hover{color:var(--gl);background:rgba(201,168,76,.05)}
+.nl a.active{color:var(--gl);border-left-color:var(--gold);background:rgba(201,168,76,.08)}
+.nn{font-family:"Playfair Display",serif;font-size:10px;font-style:italic;color:var(--gold);opacity:.65;min-width:16px}
+.nsub a{font-size:10.5px;padding:4px 22px 4px 12px;color:var(--mut)}
+.nsub a:hover{color:var(--cd)}
+.nsub a.active{color:var(--gl);border-left-color:var(--gold)}
+.main{margin-left:var(--sw);flex:1;max-width:calc(100vw - var(--sw))}
+.pb{position:fixed;top:0;left:var(--sw);right:0;height:2px;background:var(--div);z-index:99}
+.pf{height:100%;background:linear-gradient(90deg,var(--gold),var(--cop));width:0%;transition:width .08s linear}
+.sec{padding:90px 72px;border-bottom:1px solid var(--div);opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.sec.vis{opacity:1;transform:translateY(0)}
+#cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:80px 72px;background:radial-gradient(ellipse at 75% 40%,rgba(201,168,76,.07) 0%,transparent 55%)}
+#cover::before{content:"MISE-EN-PLACE";position:absolute;bottom:-30px;right:-10px;font-family:"Playfair Display",serif;font-size:clamp(70px,13vw,170px);font-weight:900;color:rgba(201,168,76,.04);line-height:1;letter-spacing:-.02em;pointer-events:none;user-select:none}
+.ce{font-family:"Lexend",sans-serif;font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:14px}
+.ce::before{content:"";width:36px;height:1px;background:var(--gold)}
+.ct{font-family:"Playfair Display",serif;font-size:clamp(44px,7vw,88px);font-weight:700;line-height:1.05;letter-spacing:-.02em;color:var(--cream);max-width:760px;margin-bottom:6px}
+.ct em{font-style:italic;color:var(--gl)}
+.cs{font-family:"Playfair Display",serif;font-size:clamp(18px,2.5vw,26px);font-style:italic;color:var(--cd);margin-bottom:28px}
+.cdiv{width:70px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:28px}
+.cq{font-family:"Cormorant Garamond",serif;font-size:19px;font-style:italic;color:var(--cd);max-width:580px;margin-bottom:40px;line-height:1.6}
+.cm{display:flex;gap:36px;margin-bottom:44px;flex-wrap:wrap}
+.cmi{display:flex;flex-direction:column;gap:3px}
+.cml{font-family:"Lexend",sans-serif;font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.cmv{font-family:"Lexend",sans-serif;font-size:12px;font-weight:500;color:var(--cream)}
+.cpills{display:flex;gap:10px;flex-wrap:wrap}
+.cp{font-family:"Lexend",sans-serif;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid var(--divs);padding:5px 12px;border-radius:2px;background:rgba(201,168,76,.05)}
+.sh2{margin-bottom:56px}
+.pl{font-family:"Lexend",sans-serif;font-size:9px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.pl::before{content:"";width:28px;height:1px;background:var(--gold)}
+.st2{font-family:"Playfair Display",serif;font-size:clamp(30px,4.5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-.01em;color:var(--cream);margin-bottom:14px}
+.sd{font-family:"Cormorant Garamond",serif;font-size:19px;font-style:italic;color:var(--cd);max-width:660px;line-height:1.5}
+.sub{margin-bottom:64px}
+.subt{font-family:"Playfair Display",serif;font-size:24px;font-weight:600;color:var(--cream);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--div)}
+.subt .n{color:var(--gold);font-style:italic;margin-right:8px}
+p{font-family:"Cormorant Garamond",serif;font-size:17.5px;line-height:1.75;color:var(--cd);margin-bottom:14px}
+p strong,b{color:var(--cream);font-weight:600}
+blockquote{border-left:2px solid var(--gold);padding:14px 20px;margin:24px 0;background:rgba(201,168,76,.04);border-radius:0 3px 3px 0}
+blockquote p{font-size:18px;font-style:italic;color:var(--cream);margin:0}
+blockquote cite{display:block;font-family:"Lexend",sans-serif;font-size:10px;font-weight:500;letter-spacing:.12em;color:var(--gold);margin-top:8px;text-transform:uppercase}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:28px 0}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin:28px 0}
+.card{background:var(--bgc);border:1px solid var(--div);border-radius:4px;padding:24px;transition:var(--tr)}
+.card:hover{border-color:var(--divs);background:var(--bgh)}
+.cl{font-family:"Lexend",sans-serif;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.ctitle{font-family:"Playfair Display",serif;font-size:19px;font-weight:700;color:var(--cream);margin-bottom:10px;line-height:1.2}
+.cb{font-family:"Cormorant Garamond",serif;font-size:15.5px;line-height:1.7;color:var(--cd)}
+.cb p{font-size:15.5px;margin-bottom:8px}
+.cb ul{list-style:none;padding:0}
+.cb li{position:relative;padding-left:14px;margin-bottom:7px;font-size:15.5px;color:var(--cd)}
+.cb li::before{content:"—";position:absolute;left:0;color:var(--gold);font-size:11px;top:4px}
+.tl{position:relative;padding-left:36px;margin:28px 0}
+.tl::before{content:"";position:absolute;left:10px;top:0;bottom:0;width:1px;background:var(--divs)}
+.tli{position:relative;margin-bottom:36px}
+.tld{position:absolute;left:-30px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--gold);border:2px solid var(--bg)}
+.tldate{font-family:"Lexend",sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;color:var(--gold);margin-bottom:5px;text-transform:uppercase}
+.tltitle{font-family:"Playfair Display",serif;font-size:19px;font-weight:600;color:var(--cream);margin-bottom:8px}
+.tlb{font-family:"Cormorant Garamond",serif;font-size:16px;line-height:1.7;color:var(--cd)}
+.dims{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:28px 0}
+.dc{background:var(--bgc);border:1px solid var(--div);border-radius:4px;padding:24px;position:relative;overflow:hidden}
+.dc::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold)}
+.dcl{font-family:"Lexend",sans-serif;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.dct{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;color:var(--cream);margin-bottom:11px}
+.dcb{font-family:"Cormorant Garamond",serif;font-size:15.5px;line-height:1.7;color:var(--cd)}
+.vals{border:1px solid var(--div);border-radius:4px;overflow:hidden;margin:28px 0}
+.vi{padding:28px 32px;border-bottom:1px solid var(--div);display:grid;grid-template-columns:180px 1fr;gap:28px;align-items:start}
+.vi:last-child{border-bottom:none}
+.vl{font-family:"Playfair Display",serif;font-size:26px;font-weight:700;color:var(--cream);letter-spacing:-.01em}
+.vl .ven{display:block;font-family:"Lexend",sans-serif;font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-top:3px}
+.vb{font-family:"Cormorant Garamond",serif;font-size:16px;line-height:1.75;color:var(--cd)}
+.vb ul{list-style:none;padding:0;margin:6px 0}
+.vb li{position:relative;padding-left:16px;margin-bottom:7px}
+.vb li::before{content:"—";position:absolute;left:0;color:var(--gold)}
+.hb{background:rgba(201,168,76,.05);border:1px solid var(--divs);border-radius:4px;padding:24px;margin:22px 0}
+.hbt{font-family:"Playfair Display",serif;font-size:17px;font-weight:600;color:var(--cream);margin-bottom:10px}
+.hbb{font-family:"Cormorant Garamond",serif;font-size:16.5px;line-height:1.75;color:var(--cd)}
+.hbb p{font-size:16.5px;margin-bottom:8px}
+.hbb ul{list-style:none;padding:0}
+.hbb li{position:relative;padding-left:20px;margin-bottom:9px;font-size:16.5px;color:var(--cd)}
+.hbb li::before{content:"×";position:absolute;left:0;color:var(--cop);font-size:11px;top:3px}
+.hbb li.ok::before{content:"✓";color:var(--gold)}
+.igrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:36px 0}
+.ic{background:var(--bgc);border:1px solid var(--div);border-radius:4px;overflow:hidden;transition:border-color var(--tr);cursor:pointer}
+.ic:hover{border-color:var(--divs)}
+.ic.open{border-color:rgba(201,168,76,.4)}
+.ih{display:flex;align-items:center;gap:18px;padding:20px 24px;transition:background var(--tr)}
+.ic:hover .ih,.ic.open .ih{background:rgba(201,168,76,.04)}
+.in{font-family:"Playfair Display",serif;font-size:36px;font-weight:700;font-style:italic;color:var(--gold);opacity:.4;min-width:46px;line-height:1;transition:opacity var(--tr)}
+.ic.open .in{opacity:1}
+.iinfo{flex:1}
+.ien{font-family:"Lexend",sans-serif;font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:3px}
+.it{font-family:"Playfair Display",serif;font-size:16.5px;font-weight:600;color:var(--cream);line-height:1.25}
+.itog{width:26px;height:26px;border-radius:50%;border:1px solid var(--divs);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:18px;font-weight:300;flex-shrink:0;transition:transform var(--tr),background var(--tr)}
+.ic.open .itog{background:rgba(201,168,76,.1);transform:rotate(45deg)}
+.ibody{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.4,0,.2,1)}
+.ic.open .ibody{max-height:5000px}
+.icont{padding:0 24px 24px;border-top:1px solid var(--div)}
+.isec{margin-top:20px}
+.isl{font-family:"Lexend",sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:9px}
+.isl::after{content:"";flex:1;height:1px;background:var(--div)}
+.it2{font-family:"Cormorant Garamond",serif;font-size:15.5px;line-height:1.7;color:var(--cd);margin-bottom:9px}
+.it2 strong{color:var(--cream)}
+.it2 p{font-size:15.5px;margin-bottom:8px;color:var(--cd)}
+.it2 ul{list-style:none;padding:0;margin:7px 0}
+.it2 li{position:relative;padding-left:16px;margin-bottom:8px}
+.it2 li::before{content:"—";position:absolute;left:0;color:var(--gold);font-size:10px;top:4px}
+.iq{border-left:2px solid var(--gold);padding:10px 14px;margin:12px 0;background:rgba(201,168,76,.04);border-radius:0 3px 3px 0}
+.iq p{font-size:15px;font-style:italic;color:var(--cream);margin:0}
+.iq cite{display:block;font-family:"Lexend",sans-serif;font-size:9px;font-weight:500;letter-spacing:.12em;color:var(--gold);margin-top:5px;text-transform:uppercase}
+.rb{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-radius:3px;padding:14px 18px;margin-top:18px}
+.rbl{font-family:"Lexend",sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.rbt{font-family:"Cormorant Garamond",serif;font-size:16px;font-style:italic;color:var(--cream);line-height:1.5}
+.mg2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.mg2i{border:1px solid var(--div);padding:10px;border-radius:3px;background:var(--bgh)}
+.mg2l{font-family:"Lexend",sans-serif;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.mg2v{font-family:"Cormorant Garamond",serif;font-size:14px;color:var(--cream);font-weight:600}
+.voc{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:28px 0}
+.vc{background:var(--bgc);border:1px solid var(--div);border-radius:4px;padding:24px;position:relative;overflow:hidden}
+.vc::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--cop))}
+.vcn{font-family:"Playfair Display",serif;font-size:40px;font-style:italic;font-weight:700;color:var(--gold);opacity:.18;line-height:1;margin-bottom:4px}
+.vct{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;color:var(--cream);margin-bottom:3px}
+.vce{font-family:"Lexend",sans-serif;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
+.vcd{font-family:"Cormorant Garamond",serif;font-size:15.5px;line-height:1.7;color:var(--cd)}
+.vcd p{font-size:15.5px;margin-bottom:8px}
+.vcd ul{list-style:none;padding:0}
+.vcd li{position:relative;padding-left:14px;margin-bottom:6px;font-size:15px}
+.vcd li::before{content:"—";position:absolute;left:0;color:var(--gold);font-size:10px;top:4px}
+.msteps{margin:28px 0}
+.ms{display:flex;gap:24px;margin-bottom:32px;position:relative}
+.ms:not(:last-child)::after{content:"";position:absolute;left:19px;top:48px;bottom:-16px;width:1px;background:var(--div)}
+.msn{width:40px;height:40px;flex-shrink:0;border-radius:50%;background:rgba(201,168,76,.1);border:1px solid var(--divs);display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",serif;font-size:17px;font-style:italic;font-weight:700;color:var(--gl);margin-top:4px}
+.msc{flex:1}
+.mst{font-family:"Lexend",sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.mstt{font-family:"Playfair Display",serif;font-size:20px;font-weight:600;color:var(--cream);margin-bottom:10px}
+.msb{font-family:"Cormorant Garamond",serif;font-size:15.5px;line-height:1.7;color:var(--cd)}
+.msb p{font-size:15.5px;margin-bottom:8px;color:var(--cd)}
+.msb ul{list-style:none;padding:0;margin:6px 0}
+.msb li{position:relative;padding-left:18px;margin-bottom:6px;font-size:15px}
+.msb li::before{content:"→";position:absolute;left:0;color:var(--gold);font-size:11px}
+.msb strong{color:var(--cream)}
+.msb .sub2{list-style:none;padding:0;margin:4px 0 4px 18px}
+.msb .sub2 li::before{content:"·";position:absolute;left:0;color:var(--mut)}
+.df{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:28px 0}
+.dp{background:var(--bgc);border:1px solid var(--div);border-radius:4px;overflow:hidden}
+.dph{padding:14px 18px;background:rgba(201,168,76,.05);border-bottom:1px solid var(--div)}
+.dpt{font-family:"Lexend",sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.dptt{font-family:"Playfair Display",serif;font-size:17px;font-weight:600;color:var(--cream)}
+.dpb{padding:14px 18px}
+.dpb ul{list-style:none;padding:0}
+.dpb li{font-family:"Cormorant Garamond",serif;font-size:14.5px;color:var(--cd);padding:6px 0 6px 16px;border-bottom:1px solid var(--div);position:relative;line-height:1.45}
+.dpb li:last-child{border-bottom:none}
+.dpb li::before{content:"·";position:absolute;left:0;color:var(--gold);font-size:20px;top:0px;line-height:1.5}
+.comms{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:28px 0}
+.comm{background:var(--bgc);border:1px solid var(--div);border-radius:4px;padding:28px 22px;text-align:center;transition:var(--tr)}
+.comm:hover{border-color:var(--divs)}
+.commn{font-family:"Playfair Display",serif;font-size:52px;font-style:italic;font-weight:700;color:var(--gold);opacity:.25;line-height:1;margin-bottom:10px}
+.commt{font-family:"Playfair Display",serif;font-size:18px;font-weight:600;color:var(--cream);margin-bottom:12px;line-height:1.3}
+.commb{font-family:"Cormorant Garamond",serif;font-size:14.5px;line-height:1.65;color:var(--cd);text-align:left}
+.commb p{font-size:14.5px;margin-bottom:6px}
+.commb ul{list-style:none;padding:0}
+.commb li{position:relative;padding-left:14px;margin-bottom:5px;font-size:14px}
+.commb li::before{content:"—";position:absolute;left:0;color:var(--gold);font-size:10px}
+.tools2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:22px 0}
+.toolc{background:var(--bgc);border:1px solid var(--div);border-radius:4px;padding:22px}
+.toolt{font-family:"Lexend",sans-serif;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--div)}
+.toolb{font-family:"Cormorant Garamond",serif;font-size:15px;line-height:1.7;color:var(--cd)}
+.toolb li{position:relative;padding-left:14px;margin-bottom:8px;font-size:15px}
+.toolb li::before{content:"—";position:absolute;left:0;color:var(--gold);font-size:10px;top:4px}
+.toolb ul{list-style:none;padding:0}
+.toolb strong{color:var(--cream)}
+.refs{margin-top:10px}
+.rc{margin-bottom:38px}
+.rct{font-family:"Lexend",sans-serif;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--div)}
+.rg{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.ri{background:var(--bgc);border:1px solid var(--div);border-radius:4px;padding:16px 18px;transition:var(--tr)}
+.ri:hover{border-color:var(--divs)}
+.ra{font-family:"Lexend",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.1em;color:var(--gold);margin-bottom:3px}
+.rtit{font-family:"Cormorant Garamond",serif;font-size:15px;font-style:italic;color:var(--cream);margin-bottom:5px;line-height:1.3}
+.rd{font-family:"Cormorant Garamond",serif;font-size:14px;line-height:1.5;color:var(--mut)}
+.ft{padding:44px 72px;border-top:1px solid var(--div);background:var(--bg2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.ftt{font-family:"Playfair Display",serif;font-size:18px;font-style:italic;color:var(--cd)}
+.ftm{font-family:"Lexend",sans-serif;font-size:10px;color:var(--mut)}
+.mbtn{display:none;position:fixed;bottom:22px;right:22px;z-index:200;width:44px;height:44px;background:var(--gold);border-radius:50%;border:none;cursor:pointer;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,.5);font-size:20px}
+@media(max-width:960px){.dims,.g3,.comms,.df,.tools2{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);transition:transform .35s ease}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0;max-width:100vw}
+  .pb{left:0}
+  .sec{padding:52px 22px}
+  #cover{padding:52px 22px}
+  .dims,.g3,.g2,.comms,.df,.voc,.igrid,.rg,.tools2{grid-template-columns:1fr}
+  .vi{grid-template-columns:1fr;gap:6px}
+  .mbtn{display:flex}
+  .mg2{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="sidebar" id="sidebar">
+  <div class="shead">
+    <div class="se">Compilação Completa</div>
+    <div class="st">Trabalhe com Organização</div>
+    <div class="sa">Dan Charnas — Work Clean</div>
+  </div>
+  <ul class="nl">
+    <li><a href="#cover"><span class="nn">◆</span>Capa</a></li>
+    <li><div class="nsl">Primeiro Prato</div></li>
+    <li><a href="#raiz"><span class="nn">I</span>A Raiz Filosófica</a></li>
+    <ul class="nsub">
+      <li><a href="#mise">O Mise-en-Place</a></li>
+      <li><a href="#dimensoes">As Três Dimensões</a></li>
+      <li><a href="#valores">Os Três Valores</a></li>
+      <li><a href="#historia">Contexto Histórico</a></li>
+      <li><a href="#problema">O Problema Resolvido</a></li>
+    </ul>
+    <li><div class="nsl">Segundo Prato</div></li>
+    <li><a href="#ingredientes"><span class="nn">II</span>Os 10 Ingredientes</a></li>
+    <ul class="nsub">
+      <li><a href="#ing1">1. Planejamento Primordial</a></li>
+      <li><a href="#ing2">2. Organizar Espaços</a></li>
+      <li><a href="#ing3">3. Limpar Enquanto Trabalha</a></li>
+      <li><a href="#ing4">4. Primeiros Movimentos</a></li>
+      <li><a href="#ing5">5. Finalizar Ações</a></li>
+      <li><a href="#ing6">6. Desacelerar p/ Acelerar</a></li>
+      <li><a href="#ing7">7. Olhos e Ouvidos Abertos</a></li>
+      <li><a href="#ing8">8. Chamada e Resposta</a></li>
+      <li><a href="#ing9">9. Inspecionar e Corrigir</a></li>
+      <li><a href="#ing10">10. Aproveitamento Total</a></li>
+    </ul>
+    <li><div class="nsl">Terceiro Prato</div></li>
+    <li><a href="#sistema"><span class="nn">III</span>O Sistema Work Clean</a></li>
+    <ul class="nsub">
+      <li><a href="#vocabulario">Vocabulário do Sistema</a></li>
+      <li><a href="#meeze">O Meeze Diário</a></li>
+      <li><a href="#dia">Um Dia Organizado</a></li>
+      <li><a href="#compromissos">Os 3 Compromissos</a></li>
+      <li><a href="#ferramentas">Ferramentas</a></li>
+    </ul>
+    <li><div class="nsl">Apêndice</div></li>
+    <li><a href="#referencias"><span class="nn">IV</span>Referências</a></li>
+  </ul>
+</nav>
+
+<div class="pb"><div class="pf" id="pf"></div></div>
+<button class="mbtn" id="mbtn">☰</button>
+
+<main class="main">
+
+<!-- ══ CAPA ══ -->
+<section id="cover" class="sec vis">
+  <div class="ce">Guia Completo do Livro</div>
+  <h1 class="ct">Trabalhe com<br><em>Organização</em></h1>
+  <div class="cs">Work Clean — Dan Charnas</div>
+  <div class="cdiv"></div>
+  <p class="cq">"O mise-en-place é mais do que ferramentas — é uma filosofia de vida forjada sob pressão real, em décadas de prática nas melhores cozinhas do mundo."</p>
+  <div class="cm">
+    <div class="cmi"><span class="cml">Autor</span><span class="cmv">Dan Charnas</span></div>
+    <div class="cmi"><span class="cml">Estrutura</span><span class="cmv">3 Pratos · 10 Ingredientes</span></div>
+    <div class="cmi"><span class="cml">Metodologia</span><span class="cmv">Reportagem · +100 Chefs</span></div>
+    <div class="cmi"><span class="cml">Objetivo</span><span class="cmv">Excelência Profissional</span></div>
+  </div>
+  <div class="cpills">
+    <span class="cp">Raiz Filosófica</span>
+    <span class="cp">10 Ingredientes</span>
+    <span class="cp">Sistema Work Clean</span>
+    <span class="cp">Meeze Diário</span>
+    <span class="cp">Referências Comentadas</span>
+  </div>
+</section>
+
+<!-- ══ SEÇÃO 1: RAIZ FILOSÓFICA ══ -->
+<section id="raiz" class="sec">
+  <div class="sh2">
+    <div class="pl">Primeiro Prato</div>
+    <h2 class="st2">A Raiz Filosófica</h2>
+    <p class="sd">A origem, os significados e os valores inegociáveis do mise-en-place — sistema forjado na pressão das cozinhas profissionais ao longo de séculos.</p>
+  </div>
+
+  <div id="mise" class="sub">
+    <h3 class="subt"><span class="n">1.1</span>O Que É o Mise-en-Place</h3>
+    <p>O <em>mise-en-place</em> — "colocar no lugar" — carrega três usos distintos e complementares dentro da cozinha profissional. Cada um revela uma camada diferente do mesmo sistema:</p>
+    <div class="g3">
+      <div class="card"><div class="cl">Significado 01 — Físico</div><div class="ctitle">O Conjunto</div><div class="cb"><p>O conjunto concreto de ingredientes e utensílios dispostos na estação de trabalho antes do início do serviço.</p><p style="font-style:italic;color:var(--cream);font-size:14.5px">"Aquele idiota derramou molho em todo o meu mise-en-place!"</p></div></div>
+      <div class="card"><div class="cl">Significado 02 — Processual</div><div class="ctitle">O Ato de Preparar</div><div class="cb"><p>O ato de preparar essa configuração — para si ou para outros cozinheiros, antes do serviço começar.</p><p style="font-style:italic;color:var(--cream);font-size:14.5px">"Se você conseguir terminar seu mise-en-place todos os dias..."</p></div></div>
+      <div class="card"><div class="cl">Significado 03 — Mental</div><div class="ctitle">O Estado de Espírito</div><div class="cb"><p>O estado mental de quem sabe exatamente como pensar, planejar e se mover — independente do ambiente físico.</p><p style="font-style:italic;color:var(--cream);font-size:14.5px">"Ela tem um bom mise-en-place."</p></div></div>
+    </div>
+  </div>
+
+  <div id="dimensoes" class="sub">
+    <h3 class="subt"><span class="n">1.2</span>As Três Dimensões do Mise-en-Place</h3>
+    <p>O Chef Dwayne LiPuma, no <em>American Bounty</em>, testa nos alunos três dimensões distintas — cada uma necessária, nenhuma suficiente sozinha:</p>
+    <div class="dims">
+      <div class="dc"><div class="dcl">Dimensão 01</div><div class="dct">Físico</div><div class="dcb">A preparação e montagem tangível: ingredientes, ferramentas e utensílios separados e organizados antes do início do trabalho. O estado visível e verificável da estação.</div></div>
+      <div class="dc"><div class="dcl">Dimensão 02</div><div class="dct">Mental</div><div class="dcb">A organização do cérebro <strong>antes</strong> do espaço físico. Baseia-se nos cronogramas (formulários da CIA). Chefs invocam esse conceito quando alunos se movem rápido ou lento demais, cedo ou tarde, falam demais ou de menos.</div></div>
+      <div class="dc"><div class="dcl">Dimensão 03</div><div class="dct">Ético</div><div class="dcb">Um conjunto de valores inegociáveis: dedicar-se como aprendiz, chegar cedo (não apenas na hora), trabalhar com intensidade, cultivar senso de urgência, permanecer alerta, buscar a perfeição.</div></div>
+    </div>
+  </div>
+
+  <div id="valores" class="sub">
+    <h3 class="subt"><span class="n">1.3</span>Os Três Valores Centrais</h3>
+    <p>Toda a filosofia do mise-en-place repousa sobre três valores que, juntos, formam uma ética de trabalho completa e indivisível:</p>
+    <div class="vals">
+      <div class="vi">
+        <div class="vl">Preparação<span class="ven">Preparation</span></div>
+        <div class="vb"><p>Para chefs, o planejamento é o "primeiro pensamento" — não um complemento. Cozinhar vem em segundo lugar: a preparação <em>precede</em> o ato de cozinhar. Abraçar a preparação significa abandonar a noção de que o trabalho de preparo é medíocre. É uma prática espiritual: humilde, incansável e inegociável.</p></div>
+      </div>
+      <div class="vi">
+        <div class="vl">Processo<span class="ven">Process</span></div>
+        <div class="vb"><p>Chefs têm uma certa maneira de ficar parados, de se mover, de organizar ferramentas. O compromisso com o processo não é sobre transformar humanos em robôs — é sobre se tornar um ser humano de alto desempenho e ser mais feliz por isso. Erros tornam-se oportunidades de calibração: <em>"Só não cometa o mesmo erro duas vezes."</em> (Wylie Dufresne). Excelência surge do refinamento de bons processos.</p></div>
+      </div>
+      <div class="vi">
+        <div class="vl">Presença<span class="ven">Presence</span></div>
+        <div class="vb">
+          <ul>
+            <li><strong>Nível 1:</strong> Estar presente fisicamente. Chegar cedo é obrigatório — não há opção de atraso.</li>
+            <li><strong>Nível 2:</strong> Após anos de prática, o cozinheiro torna-se um com o trabalho — uma forma de meditação.</li>
+            <li><strong>Nível 3:</strong> "Consciência de cozinha" — estar com o trabalho E com os companheiros ao mesmo tempo. Foco e abertura simultâneos.</li>
+            <li><strong>Nível 4:</strong> Discrição e fronteiras. Estar "dentro" ou "fora", "ligado" ou "desligado". Não carregar o trabalho no tempo de descanso.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <blockquote>
+      <p>"Não importa o quão movimentado seja, é o espaço dele. O lugar dele. O ritmo dele."</p>
+      <cite>Brian Plant, sous-chef do Esca — sobre Dave Pasternack</cite>
+    </blockquote>
+    <div class="hb">
+      <div class="hbt">A Cena de Pasternack no Esca — Presença Máxima</div>
+      <div class="hbb"><p>Dave Pasternack sai da cozinha durante o serviço e vai sentar com amigos na sala de jantar. A impressora cospe pedidos. Ninguém intervém. O sous-chef Brian Plant explica por quê. Pasternack retorna sem pressa e retoma o serviço com perfeição.</p><p>Charnas: <em>"O que vi não era uma pausa no serviço, mas uma espécie de paz. Essa calma vem do foco, um dos salários não reconhecidos do ofício de chef. Um chef planeja e, portanto, um chef decide o que acontece e quando."</em></p></div>
+    </div>
+  </div>
+
+  <div id="historia" class="sub">
+    <h3 class="subt"><span class="n">1.4</span>Contexto Histórico</h3>
+    <p>O mise-en-place moderno nasce da convergência de dois vetores históricos separados por continentes e séculos:</p>
+    <div class="tl">
+      <div class="tli">
+        <div class="tld"></div>
+        <div class="tldate">Japão, 1237</div>
+        <div class="tltitle">Eihei Dogen — O Tenzo Kyokun</div>
+        <div class="tlb">
+          <p>O monge budista Eihei Dogen escreveu o <em>Tenzo Kyokun</em> ("Instruções ao Tenzo"). O tenzo — chefe da cozinha do mosteiro — ocupava um dos seis altos cargos zen, reservado para os monges mais habilidosos. Dogen antecipa em séculos toda a filosofia do mise-en-place:</p>
+          <div style="margin:12px 0;padding:12px 18px;border-left:1px solid var(--divs)">
+            <p style="font-size:15px;margin-bottom:6px;font-style:italic;color:var(--cd)">"O amanhã começa hoje, ao meio-dia" — preparação</p>
+            <p style="font-size:15px;margin-bottom:6px;font-style:italic;color:var(--cd)">"Manuseie os ingredientes como se fossem seus próprios olhos" — movimento</p>
+            <p style="font-size:15px;margin-bottom:6px;font-style:italic;color:var(--cd)">"Não deixe nem um grão de arroz se perder" — aproveitamento total</p>
+            <p style="font-size:15px;margin-bottom:0;font-style:italic;color:var(--cd)">"Quando sentado, apenas sente-se. Quando cozinhando, apenas cozinhe." — presença</p>
+          </div>
+          <p>Dogen via o trabalho incansável do tenzo como portal para o crescimento pessoal: servir outros com magnanimidade é trabalhar para melhorar a si mesmo.</p>
+        </div>
+      </div>
+      <div class="tli">
+        <div class="tld"></div>
+        <div class="tldate">França/Europa, 1859–1935</div>
+        <div class="tltitle">Georges Auguste Escoffier — A Brigade de Cuisine</div>
+        <div class="tlb">
+          <p>Escoffier entrou na cozinha aos 13 anos em Nice (1859). A experiência militar no cerco de Metz (1870) — sitiado por 2 meses, sem comida a partir de 25 de outubro — o formou como planejador radical. Criou a hierarquia moderna da cozinha:</p>
+          <p style="font-style:italic;color:var(--cd);margin:10px 0;font-size:15px;">Chef de Cuisine → Sous-Chefs → Chefs de Partie (garde-manger, sauté, saucier, pâtissier, rôtisseur, poissonnier, friturier) → Aboyeur → Plongeur</p>
+          <p>Em 1903, publicou <em>Le Guide Culinaire</em> — 900 páginas codificando técnicas e procedimentos. Seu sistema tornou-se linha de montagem culinária replicável globalmente: padrão em Nova York, Paris, Moscou e Mumbai.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="problema" class="sub">
+    <h3 class="subt"><span class="n">1.5</span>O Problema Que o Mise-en-Place Resolve</h3>
+    <p>O livro localiza o mise-en-place dentro da tradição da produtividade moderna, reconhecendo predecessores e suas lacunas fundamentais:</p>
+    <div class="g3" style="margin-bottom:22px">
+      <div class="card"><div class="cl">1954 / Eisenhower</div><div class="ctitle">Urgente vs. Importante</div><div class="cb"><p>"Tenho dois tipos de problemas: os urgentes e os importantes. Os urgentes não são importantes, e os importantes nunca são urgentes."</p></div></div>
+      <div class="card"><div class="cl">1989–1994 / Covey</div><div class="ctitle">7 Hábitos + Matriz</div><div class="cb"><p><em>Os 7 Hábitos</em> e <em>Primeiro o Mais Importante</em>. A Matriz de Eisenhower reformulada em 4 quadrantes. Abordagem centrada em princípios.</p></div></div>
+      <div class="card"><div class="cl">2001 / David Allen</div><div class="ctitle">Getting Things Done</div><div class="cb"><p><em>A Arte de Fazer Acontecer</em> — "mantenha o foco na próxima ação". Um dos sistemas mais abrangentes até então. O predecessor mais próximo do Work Clean.</p></div></div>
+    </div>
+    <div class="hb">
+      <div class="hbt">O que esses sistemas não têm — e por que o mise-en-place é diferente</div>
+      <div class="hbb"><ul>
+        <li>Uma estratégia não é um sistema completo</li>
+        <li>Um método para espaço pode não incluir orientação para o tempo</li>
+        <li>Nenhum deles lida com a dimensão interna: resistência mental, emocional e física</li>
+        <li class="ok"><strong style="color:var(--cream)">O mise-en-place emerge de circunstâncias que <em>obrigaram</em> os chefs a criá-lo</strong> — não é um sistema acadêmico; é conhecimento forjado na prática de décadas, sob pressão real</li>
+      </ul></div>
+    </div>
+    <div class="g2">
+      <div class="card"><div class="cl">O Problema — Jeremy no Escritório</div><div class="ctitle">Sem Mise-en-Place</div><div class="cb"><ul>
+        <li>Não planeja a sequência do dia</li><li>Não consulta o calendário</li><li>Perde itens em superfícies aleatórias</li><li>Ignora e-mails com alterações pedidas</li><li>Não comunica pendências</li><li>Entra em pânico e se apressa</li><li>Não anota decisões em reuniões</li><li>Repete os mesmos erros</li>
+      </ul><p style="margin-top:10px;font-style:italic;font-size:14.5px;color:var(--cop)">"Nas melhores cozinhas, ele seria demitido."</p></div></div>
+      <div class="card"><div class="cl">A Solução — Michael Ruhlman</div><div class="ctitle">Mise-en-Place Aplicado</div><div class="cb"><p>Jornalista com 4 meses para entregar 90.000 palavras. Aplicou o mise-en-place: <strong>1.400 palavras/dia × 5 dias/semana</strong>, revisão no sábado, descanso no domingo. Entregou no prazo.</p><div class="iq"><p>"Mas eu não pensava mais assim. Eu tinha me tornado um cozinheiro."</p><cite>Michael Ruhlman</cite></div><p style="font-size:14.5px;margin:0">O que reteve: honestidade implacável com o tempo, o espaço, o sucesso e o fracasso.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SEÇÃO 2: 10 INGREDIENTES ══ -->
+<section id="ingredientes" class="sec">
+  <div class="sh2">
+    <div class="pl">Segundo Prato</div>
+    <h2 class="st2">Os 10 Ingredientes</h2>
+    <p class="sd">Cada ingrediente é um comportamento — com história real de um chef, aplicação fora da cozinha, ferramentas práticas e uma receita para o sucesso. Clique para expandir.</p>
+  </div>
+
+  <div class="igrid">
+
+  <!-- ING 1 -->
+  <div id="ing1" class="ic" onclick="tog(this)">
+    <div class="ih"><div class="in">01</div><div class="iinfo"><div class="ien">Planning is Prime</div><div class="it">O Planejamento É Primordial</div></div><div class="itog">+</div></div>
+    <div class="ibody"><div class="icont">
+      <div class="isec"><div class="isl">História do Chef</div><div class="it2"><p><strong>Chef Dwayne LiPuma — River Cafe.</strong> Era péssimo planejador: ficava sem mise-en-place no meio do jantar, a praça inteira parava por ele, um colega o jogou contra a geladeira. Solução: chegar mais cedo que todos, ser honesto sobre quanto tempo cada tarefa levava (2h, 3h), nunca mais querer aquela sensação de pânico. Lema aprendido com o cunhado Pierre: <em>"Greet the day"</em> — "Receba o dia".</p></div></div>
+      <div class="isec"><div class="isl">O Que os Chefs Fazem</div><div class="it2"><ul>
+        <li><strong>Planejam em primeiro lugar:</strong> Um restaurante é uma promessa — preparação precede o ato de cozinhar. O planejamento leva mais tempo do que o cozinhar.</li>
+        <li><strong>São honestos com o tempo:</strong> Cozinhar segue leis da física — arroz leva X minutos, bife leva Y. Fazer uma lista é metade do trabalho; a outra metade é confrontar a lista com o relógio. "Decidir" vem da mesma raiz latina que "homicídio" — eliminar o não essencial.</li>
+        <li><strong>Linha do Tempo (Timeline):</strong> Formulário da CIA com 4 seções: Equipamentos / Alimentos / Etapas / <strong>Linha do Tempo</strong> (horários exatos para cada passo). A sequência é tudo: não dá para fazer molho antes do caldo, caldo antes de assar os ossos.</li>
+        <li><strong>Planejam de trás para frente:</strong> Do prato final → recuo no tempo calculando cada etapa. Wylie Dufresne: escreve a lista à noite, amassa, escreve de memória, amassa de novo — gravando no cérebro.</li>
+        <li><strong>Subplanejadores vs Superplanejadores:</strong> Subplanejadores se rendem ao tempo; superplanejadores brigam com ele. A solução é o "senso maduro e honesto do chef" sobre o que pode e não pode ser feito.</li>
+      </ul></div></div>
+      <div class="isec"><div class="isl">Fora da Cozinha — Ferramentas</div><div class="it2"><ul>
+        <li><strong>Diário de Honestidade:</strong> Rastrear por um mês o tempo real que tarefas recorrentes levam. Encontrar a "sessão mínima" para cada tipo de trabalho.</li>
+        <li><strong>Ponto Meeze:</strong> Número máximo de Ações que você consegue completar num dia antes de começar a falhar. Método: comece com 3 Ações na sexta, adicione 1 por semana. Quando falhar 3 semanas seguidas no número N, seu Ponto Meeze é N-1. O autor tem Ponto Meeze = 10.</li>
+        <li><strong>Planejar o Prato Primeiro (Plate First):</strong> Visualize o momento da entrega primeiro, depois planeje retroativamente. Quais recursos? Que tempo? Há atrasos, feriados? Tempo para inspecionar e corrigir?</li>
+        <li><strong>Agendar Ações:</strong> Sem distinção falsa entre lista de afazeres e calendário — ambos são Ações. O calendário é "a ferramenta perfeita para guiar realizações diárias." (Peter Bregman)</li>
+        <li><strong>Chegue Cedo:</strong> 15 minutos antes de todo compromisso. Dividendos: serenidade e oportunidade. Aplica-se especialmente a compromissos consigo mesmo.</li>
+      </ul></div></div>
+      <div class="rb"><div class="rbl">Receita para o Sucesso</div><div class="rbt">"Comprometa-se a ser honesto com o tempo. Planeje diariamente."</div></div>
+    </div></div>
+  </div>
+
+  <!-- ING 2 -->
+  <div id="ing2" class="ic" onclick="tog(this)">
+    <div class="ih"><div class="in">02</div><div class="iinfo"><div class="ien">Arranging Spaces, Perfecting Movements</div><div class="it">Organizando Espaços, Aperfeiçoando Movimentos</div></div><div class="itog">+</div></div>
+    <div class="ibody"><div class="icont">
+      <div class="isec"><div class="isl">O Que os Chefs Fazem</div><div class="it2"><ul>
+        <li><strong>O Triângulo Mágico:</strong> Design geométrico da estação que comprime entrada, execução e saída ao alcance da rotação natural do corpo. LiPuma: "Que tipo de concha você precisa? Uma de 240ml — o tamanho da porção. Com concha menor, você serve 4 vezes em vez de 1. Quanto menos sua mão se move, mais eficiente você é."</li>
+        <li><strong>Zonas e Recipientes Fracionados (Nine-pans):</strong> Ingredientes em pequenas quantidades, em múltiplos recipientes na área de trabalho — evita deslocamentos. Todos os ingredientes de um prato em uma única área ("zonados").</li>
+        <li><strong>Movimento Equilibrado:</strong> Uso de ambas as mãos simultaneamente e dos dois lados da praça. LiPuma ao ver Rahmie: "Seria mais fácil trazer a frigideira até o mise-en-place do que seu mise-en-place até a frigideira?"</li>
+        <li><strong>Encadeamento de Tarefas (Task Chaining):</strong> Calcular a ação subsequente <em>enquanto</em> executa a atual. O cozinheiro sempre sabe qual será o próximo movimento para cada pedido em andamento.</li>
+        <li><strong>Memorização da Estação:</strong> "Eu deveria poder vendá-los, e quando eu dissesse 'Peguem o pegador', vocês saberiam que ele está sempre ali mesmo." — LiPuma</li>
+        <li><strong>Kichiri / Knolling:</strong> Alinhamento geométrico de materiais em ângulos retos ou paralelos para decodificação visual imediata. Tom Sachs — 4 passos: escanear → guardar o inútil → agrupar semelhantes → alinhar em ângulos retos.</li>
+      </ul></div></div>
+      <div class="isec"><div class="isl">Fora da Cozinha</div><div class="it2"><ul>
+        <li><strong>Geografia de Ícones e Declutter Digital:</strong> Replicar a ergonomia espacial nas interfaces digitais — organizar atalhos e diretórios por frequência de uso, criando memória muscular digital.</li>
+        <li><strong>Containerização:</strong> Confinamento de recursos periféricos em recipientes específicos para evitar espalhamento pela área principal de trabalho.</li>
+        <li><strong>Dispositivos Duplos:</strong> Um para conectividade/respostas; outro isolado e offline para trabalho imersivo.</li>
+      </ul></div></div>
+      <div class="rb"><div class="rbl">Receita para o Sucesso</div><div class="rbt">"Organize seu espaço para que seu espaço trabalhe por você. Cada centímetro, cada movimento — por design."</div></div>
+    </div></div>
+  </div>
+
+  <!-- ING 3 -->
+  <div id="ing3" class="ic" onclick="tog(this)">
+    <div class="ih"><div class="in">03</div><div class="iinfo"><div class="ien">Cleaning As You Go</div><div class="it">Limpar Enquanto Trabalha</div></div><div class="itog">+</div></div>
+    <div class="ibody"><div class="icont">
+      <div class="isec"><div class="isl">O Que os Chefs Fazem</div><div class="it2">
+        <p>Manutenção contínua da ordem preserva a clareza mental e evita o acúmulo de entropia sistêmica.</p>
+        <div class="iq"><p>"Para mim é algo muito zen. Você está tão no momento que não tem coisas do passado. Tudo foi limpo, todas as minhas facas estão limpas, tábua de corte limpa, espaço livre para trabalhar, mente livre."</p><cite>Greg Barr, sous-chef do Esca</cite></div>
+        <ul>
+          <li>LiPuma durante o serviço: empurra frigideiras para o lado, carrega-as até a pia. No final: em 15 minutos a cozinha brilha como se nenhum cozimento tivesse ocorrido.</li>
+          <li><strong>Ponto Zero (Come to Zero):</strong> Protocolo de resetar o perímetro físico e encerrar sessões virtuais completas a cada transição — neutraliza contaminação cruzada entre tarefas.</li>
+          <li>A limpeza como mecanismo de biofeedback: tátil, parassimpático, restaurador. Quando o estresse domina, limpar a estação obriga o corpo a pausar, respirar e retomar o controle sobre a pressa e a ansiedade.</li>
+        </ul>
+      </div></div>
+      <div class="isec"><div class="isl">Fora da Cozinha</div><div class="it2"><ul>
+        <li><strong>Higiene de Projetos:</strong> Fechar formalmente todos os componentes de uma demanda antes de autorizar o início da próxima.</li>
+        <li><strong>Reflexo de Limpeza:</strong> Usar a arrumação tátil de superfícies como mecanismo de reset mental em momentos de pânico.</li>
+        <li><strong>Meeze de Transição:</strong> Mini-ritual de 1 a 5 minutos entre tarefas: reorganizar mesa, fechar projetos anteriores, verificar programação, sinalizar e-mails. (Conexão com Ingrediente 9 — Inspecionar e Corrigir)</li>
+      </ul></div></div>
+      <div class="rb"><div class="rbl">Receita para o Sucesso</div><div class="rbt">"Limpe à medida que avança. Um espaço limpo é uma mente limpa — e mente limpa é produção limpa."</div></div>
+    </div></div>
+  </div>
+
+  <!-- ING 4 -->
+  <div id="ing4" class="ic" onclick="tog(this)">
+    <div class="ih"><div class="in">04</div><div class="iinfo"><div class="ien">Making First Moves</div><div class="it">Fazendo os Primeiros Movimentos</div></div><div class="itog">+</div></div>
+    <div class="ibody"><div class="icont">
+      <div class="isec"><div class="isl">O Que os Chefs Fazem</div><div class="it2">
+        <p>O momento presente vale mais do que um momento futuro porque a ação presente põe processos em andamento e desbloqueia o trabalho dos outros.</p>
+        <ul>
+          <li>LiPuma: <em>"Marcha a frigideira!"</em> antes de temperar o cordeiro — porque a frigideira fria não esquenta instantaneamente. <strong>"Você está ajudando o tempo ou prejudicando o tempo?"</strong></li>
+          <li><strong>Criação de Marcadores (Placeholders):</strong> Quando as demandas chegam rápido demais, posiciona-se um objeto no campo visual (panela fria no fogão) como representante físico de uma tarefa que a mente não consegue reter simultaneamente.</li>
+          <li><strong>Tempo Imersivo (Hands-on):</strong> Janelas de atenção isolada voltadas puramente à criação técnica e execução solitária — dependem exclusivamente de você.</li>
+          <li><strong>Tempo de Processo (Hands-off):</strong> Períodos alocados a inputs gerenciais breves que desbloqueiam ações fundamentais executadas por outros. Mais "eficientes em termos de energia" porque o trabalho real é feito em parte por outros processos ou pessoas.</li>
+        </ul>
+      </div></div>
+      <div class="isec"><div class="isl">Fora da Cozinha</div><div class="it2"><ul>
+        <li>Antes de iniciar sessão imersiva, enviar os e-mails e ligações que colocarão outros processos em andamento.</li>
+        <li>Identificar na Matriz de Entrega (Ingrediente 5) as tarefas de processo como "frutas mais baixas da árvore" — alta expectativa, maior facilidade — e priorizá-las no início do dia.</li>
+        <li>Reuniões e deslocamentos como oportunidades de processo — conexão com Ingrediente 10 (Aproveitamento Total).</li>
+      </ul></div></div>
+      <div class="rb"><div class="rbl">Receita para o Sucesso</div><div class="rbt">"Inicie os processos o mais cedo possível. Liberte os outros para que possam libertar você."</div></div>
+    </div></div>
+  </div>
+
+  <!-- ING 5 -->
+  <div id="ing5" class="ic" onclick="tog(this)">
+    <div class="ih"><div class="in">05</div><div class="iinfo"><div class="ien">Finishing Actions</div><div class="it">Finalizar Ações</div></div><div class="itog">+</div></div>
+    <div class="ibody"><div class="icont">
+      <div class="isec"><div class="isl">História do Chef</div><div class="it2"><p><strong>Chef Charlene Johnson-Hadley — American Table (Lincoln Center).</strong> Soterrada em 8 caixas de cogumelos. Mente saltando para outros projetos. Conversa consigo mesma: <em>"Pare, Charlene. Você precisa terminar de separar estes..."</em> Princípio central aprendido: <strong>Um prato 90% pronto tem o mesmo valor de um prato 0% pronto.</strong></p></div></div>
+      <div class="isec"><div class="isl">O Que os Chefs Fazem</div><div class="it2"><ul>
+        <li><strong>Mentalidade de entrega:</strong> Um chef não pode servir um steak au poivre sem o molho. 90% concluído = 0% concluído na perspectiva do cliente.</li>
+        <li><strong>Custos ocultos de parar:</strong> O custo de uma pausa inclui os minutos para retomar o ritmo. Fazer o mesmo trabalho repetidamente é mais eficiente — momentum e agregação.</li>
+        <li><strong>Finalizar libera espaço:</strong> Tarefas inacabadas ocupam espaço na estação E largura de banda cognitiva. Chef Eden: <em>"Você começa um trabalho e você termina um trabalho."</em></li>
+        <li><strong>Começar com o fim em mente:</strong> Nunca iniciar sem responder: "Como e quando vou terminar isso?" Chef Eden: "Você fica preso na cozinha 2 horas além do horário porque começou 16 projetos e não terminou nenhum."</li>
+      </ul>
+      <p style="margin-top:12px;"><strong>Matriz de Entrega</strong> — cruza <em>Facilidade</em> (tempo + energia) com <em>Expectativa</em> (prazo + quem espera):</p>
+      <div class="mg2">
+        <div class="mg2i" style="border-color:rgba(201,168,76,.3)"><div class="mg2l" style="color:var(--gold)">Alta Expect. + Alta Facilidade</div><div class="mg2v">Concluíveis → Fazer Primeiro</div></div>
+        <div class="mg2i" style="border-color:rgba(194,123,80,.25)"><div class="mg2l" style="color:var(--cop)">Alta Expect. + Baixa Facilidade</div><div class="mg2v">Complexas → Tempo Imersivo</div></div>
+        <div class="mg2i"><div class="mg2l" style="color:var(--mut)">Baixa Expect. + Baixa Facilidade</div><div class="mg2v" style="color:var(--cd)">Adiáveis</div></div>
+        <div class="mg2i"><div class="mg2l" style="color:var(--mut)">Baixa Expect. + Alta Facilidade</div><div class="mg2v" style="color:var(--cd)">Distrações</div></div>
+      </div></div></div>
+      <div class="isec"><div class="isl">Fora da Cozinha — Por Que Paramos</div><div class="it2"><ul>
+        <li><strong>Cansaço:</strong> Discernir cansaço real de "cansaço-medo" (mesma fisiologia). Calcular: vale a pausa agora ou será mais trabalho depois?</li>
+        <li><strong>Ambição descontrolada:</strong> "Rebaixamento temporário" — tornar-se o executor: <em>"Enquanto esses cogumelos não estiverem prontos, sou um cozinheiro de preparo."</em></li>
+        <li><strong>Síndrome da Linha de Chegada:</strong> Deixar os 10% finais para "depois" e nunca terminar. Solução: honestidade com o tempo.</li>
+        <li><strong>Amarrar as Pontas Soltas:</strong> Quando não é possível terminar — reunir materiais, anotar o próximo pensamento, agendar a retomada, comunicar progresso. Hemingway encerrava cada sessão com a primeira frase do próximo trecho.</li>
+        <li><strong>Combatendo o Perfeccionismo:</strong> Excelência = qualidade entregue. Lorne Michaels: <em>"Não entramos no ar porque estamos prontos. Entramos porque são 23h30."</em> Sem entrega não há feedback — sem feedback não há melhoria.</li>
+        <li><strong>Fatiamento de Tempo (Chunking):</strong> Dividir projetos grandes em blocos conclusíveis no tempo reservado. Metas menores elevam o ânimo.</li>
+      </ul></div></div>
+      <div class="rb"><div class="rbl">Receita para o Sucesso</div><div class="rbt">"Comprometa-se a entregar. Quando uma tarefa estiver quase pronta, termine-a. Esteja sempre desbloqueando."</div></div>
+    </div></div>
+  </div>
+
+  <!-- ING 6 -->
+  <div id="ing6" class="ic" onclick="tog(this)">
+    <div class="ih"><div class="in">06</div><div class="iinfo"><div class="ien">Slow Down to Speed Up</div><div class="it">Desacelerar Para Acelerar</div></div><div class="itog">+</div></div>
+    <div class="ibody"><div class="icont">
+      <div class="isec"><div class="isl">O Que os Chefs Fazem</div><div class="it2">
+        <p>A precisão precede a velocidade — não o contrário.</p>
+        <div class="iq"><p>"Sendo organizados, serão mais eficientes. Sendo mais eficientes, terão mais tempo no dia. Tendo mais tempo, estarão mais relaxados; conseguirão cumprir a tarefa com um movimento claro, preciso e fluido." E depois: "Como óleo sobre vidro."</p><cite>Chef Dwayne LiPuma</cite></div>
+        <ul>
+          <li><strong>Mielinização:</strong> A repetição lentificada da mecânica perfeita solidifica rodovias neurais inconscientes — a base fisiológica da velocidade. Os gânglios basais memorizam movimentos musculares repetidos. A velocidade é subproduto da precisão repetida, não de pressa.</li>
+          <li>Um corpo calmo pode acalmar a mente — a ordem física restaura a ordem mental.</li>
+          <li>A pressa gera erros que custam mais tempo do que a cautela economizaria.</li>
+        </ul>
+      </div></div>
+      <div class="isec"><div class="isl">Fora da Cozinha</div><div class="it2"><ul>
+        <li>Usar a ordem física da estação de trabalho para restaurar a ordem mental em momentos de caos.</li>
+        <li>Quando sob pressão: respirar fundo, levantar, alongar — depois perguntar: qual é a coisa mais importante que posso fazer agora?</li>
+        <li>Trabalhar mais devagar para entregar com maior acurácia, evitando o retrabalho que a pressa gera.</li>
+        <li>A mielinização aplica-se ao trabalho intelectual: praticar deliberadamente o processo correto — mesmo que lentamente — constrói excelência duradoura e inevitável velocidade.</li>
+      </ul></div></div>
+      <div class="rb"><div class="rbl">Receita para o Sucesso</div><div class="rbt">"Vá devagar para ir com precisão. A velocidade é o subproduto da excelência — nunca da pressa."</div></div>
+    </div></div>
+  </div>
+
+  <!-- ING 7 -->
+  <div id="ing7" class="ic" onclick="tog(this)">
+    <div class="ih"><div class="in">07</div><div class="iinfo"><div class="ien">Eyes and Ears Open</div><div class="it">Olhos e Ouvidos Abertos</div></div><div class="itog">+</div></div>
+    <div class="ibody"><div class="icont">
+      <div class="isec"><div class="isl">O Que os Chefs Fazem</div><div class="it2">
+        <p>Manutenção da consciência periférica filtrada: identificar sinais vitais da operação ao redor, em meio ao ruído constante.</p>
+        <ul>
+          <li>LiPuma patrulha a linha e nota simultaneamente: cerefólio marrom, azeite faltando na bruschetta, bife retirado do forno sem autorização, estudante encostado na bancada — tudo captado enquanto acompanha o serviço.</li>
+          <li>Pasternack no Esca: seus olhos percorrem os tickets no rack, cronometrando, decidindo quando acionar o próximo curso de cada mesa. Relógio 15 minutos adiantado. Nunca se atrasa — pelo menos não na cozinha.</li>
+          <li><strong>Sintonização (Attunement):</strong> Calibrar atenção seletiva com base em termos e tons específicos — captar inputs essenciais no meio do ruído informacional, como um chef que ouve a fritadeira superaquecer através do burburinho da cozinha.</li>
+          <li>Comunicação excessiva também é problema: garçons conversando enquanto a confeitaria chama a saída é ruído que cobre o sinal vital.</li>
+        </ul>
+      </div></div>
+      <div class="isec"><div class="isl">Fora da Cozinha — Ferramentas</div><div class="it2"><ul>
+        <li><strong>Sinais VIP (VIP Alerts):</strong> Alertas sonoros e visuais exclusivos para instâncias críticas da hierarquia — reduz latência em chamados vitais e evita que mensagens importantes se percam no fluxo geral.</li>
+        <li><strong>Periscópio (Up Periscope):</strong> Engajamento da rede de comunicação em intervalos rítmicos limitados, com desconexão radical no ínterim — atenção periódica ao ambiente sem dispersão contínua. O chef que verifica tickets a cada 10 minutos, não a cada minuto.</li>
+        <li><strong>Presença na Escuta:</strong> Onde estão os seus olhos quando alguém fala? Seu corpo está voltado para a conversa? Sua boca está relaxada? Sua mente está no subtexto ou na própria narrativa interior?</li>
+      </ul></div></div>
+      <div class="rb"><div class="rbl">Receita para o Sucesso</div><div class="rbt">"Mantenha os olhos e ouvidos no que importa. Filtre o ruído — capte o essencial."</div></div>
+    </div></div>
+  </div>
+
+  <!-- ING 8 -->
+  <div id="ing8" class="ic" onclick="tog(this)">
+    <div class="ih"><div class="in">08</div><div class="iinfo"><div class="ien">Call and Callback</div><div class="it">Chamada e Resposta</div></div><div class="itog">+</div></div>
+    <div class="ibody"><div class="icont">
+      <div class="isec"><div class="isl">O Que os Chefs Fazem</div><div class="it2">
+        <p>Circuitos fechados de comunicação: confirmação verbal de diretrizes para extinguir ambiguidade e erros de transmissão.</p>
+        <ul>
+          <li>LiPuma: "Pega o cordeiro e coloca no forno!" — silêncio de Ronald. Repete com incisividade. "Sim, Chef!" — "Essa é a resposta certa." O silêncio não é confirmação; é ambiguidade.</li>
+          <li>LiPuma quer que os alunos repitam as <em>quantidades</em> ouvidas: "Dois peixes! Um porco!" — não apenas "Sim, Chef!" — o callback elimina ruído e confirma entendimento real.</li>
+          <li>Pasternack: "Marchando linguine! Marchando frango! Marchando rombo!" → "Sim, Chef!" — cada cozinheiro da praça confirma o pedido.</li>
+          <li>O caso de Jeremy no escritório: Stephen perguntou "Você concorda com isso?" — Jeremy acenou que sim, sem verbalizar. Resultado: o contrato foi perdido porque Jeremy "não se lembrava" de ter concordado. A ausência de callback custou caro.</li>
+        </ul>
+      </div></div>
+      <div class="isec"><div class="isl">Fora da Cozinha — Ferramentas</div><div class="it2">
+        <p><strong>Os 4 Níveis de Resposta</strong> (para e-mail e comunicação em geral):</p>
+        <ul>
+          <li><strong>Nível 1 — Confirmação:</strong> "Recebi" — acusa o recebimento sem mais compromisso.</li>
+          <li><strong>Nível 2 — Roteamento:</strong> Redirecionar para a pessoa certa ou agendar para quando puder dar atenção adequada.</li>
+          <li><strong>Nível 3 — Resposta Simples:</strong> Sim / Não / Uma linha resolutiva.</li>
+          <li><strong>Nível 4 — Resposta Detalhada:</strong> Reservar para quando merece atenção imersiva.</li>
+        </ul>
+        <ul>
+          <li><strong>Linguagem de Ação (Action Language):</strong> Comprimir reuniões e e-mails vagos para os próximos passos operacionais: "Qual é o próximo passo?" / "Como posso ajudar?" / "Quando você precisará disso?"</li>
+          <li><strong>Consolidação de Canais:</strong> Restringir múltiplas plataformas de entrada — funilar demandas para não dispersar atenção nem perder callbacks vitais.</li>
+        </ul>
+      </div></div>
+      <div class="rb"><div class="rbl">Receita para o Sucesso</div><div class="rbt">"Confirme tudo. Elimine a ambiguidade. Comunique-se em circuito fechado — sempre."</div></div>
+    </div></div>
+  </div>
+
+  <!-- ING 9 -->
+  <div id="ing9" class="ic" onclick="tog(this)">
+    <div class="ih"><div class="in">09</div><div class="iinfo"><div class="ien">Inspect and Correct</div><div class="it">Inspecionar e Corrigir</div></div><div class="itog">+</div></div>
+    <div class="ibody"><div class="icont">
+      <div class="isec"><div class="isl">O Que os Chefs Fazem</div><div class="it2">
+        <p>Escrutínio contínuo do próprio produto e do dos outros. Erros são dados para calibração do sistema — não motivo de vergonha.</p>
+        <ul>
+          <li>LiPuma inspeciona o mise-en-place dos alunos na pausa do almoço, deixando notas com marcador nas bancadas: "Seu cerefólio está marrom", "Papel toalha embaixo da salsinha", "Pincele com azeite". Inspeção sem crueldade — com precisão.</li>
+          <li><strong>O papel tridimensional do Expedidor/Aboyeur:</strong> (1) Escudo dos cozinheiros — controla o fluxo de pedidos evitando saturação das praças; (2) Monitor das práticas durante o serviço; (3) Defensor do cliente — testa a qualidade final antes de a comida sair para a sala.</li>
+          <li>Keller no French Laundry: placa abaixo do relógio — "Senso de Urgência". Ensina cozinheiros a amarrar e desatar sacos plásticos e a abrir portas de geladeira. Busca um método perfeito para tudo. <em>"Garanta que sua estação esteja limpa. E tudo que decorre disso."</em></li>
+        </ul>
+      </div></div>
+      <div class="isec"><div class="isl">Fora da Cozinha — Ferramentas</div><div class="it2"><ul>
+        <li><strong>Checklists Ler-Fazer (Read-Do):</strong> Guia preventivo lido e executado passo a passo — para rotinas desconhecidas ou críticas.</li>
+        <li><strong>Checklists Fazer-Confirmar (Do-Confirm):</strong> Executar de memória; usar a lista no final apenas para auditoria — para processos de alta velocidade.</li>
+        <li><strong>Listas de Crise:</strong> Roteiros de contingência para isolar a emoção e engatilhar raciocínio físico imediato em quedas anímicas bruscas.</li>
+        <li><strong>Contagem de Erros:</strong> Catalogar desvios cotidianos e suas consequências para pavimentar adaptações estruturais do workflow.</li>
+        <li><strong>Pensamento de Caixa Preta (Black Box Thinking):</strong> Princípio da aviação — mapear falhas sem ego, criar checklists de prevenção para que o erro nunca se repita.</li>
+        <li><strong>Sistema de Parceria (Buddy System):</strong> Agente externo imparcial para vistorias cruzadas — contorna o ponto cego da própria operação.</li>
+        <li><strong>Autoedição (Self-editing):</strong> Técnicas de Susan Bell — distanciamento cognitivo: mudança espacial, ler em voz alta, criar diálogo interno fingindo ser terceiro.</li>
+      </ul></div></div>
+      <div class="rb"><div class="rbl">Receita para o Sucesso</div><div class="rbt">"Inspecione continuamente. Trate o erro como dado, não como fracasso — e nunca repita o mesmo."</div></div>
+    </div></div>
+  </div>
+
+  <!-- ING 10 -->
+  <div id="ing10" class="ic" onclick="tog(this)">
+    <div class="ih"><div class="in">10</div><div class="iinfo"><div class="ien">Total Utilization</div><div class="it">Aproveitamento Total</div></div><div class="itog">+</div></div>
+    <div class="ibody"><div class="icont">
+      <div class="isec"><div class="isl">O Que os Chefs Fazem</div><div class="it2">
+        <p>Ética de gestão de recursos: não permitir descarte inútil, converter perdas, falhas e sobras em valor funcional.</p>
+        <div class="iq"><p>"Nenhum espaço desperdiçado, nenhum movimento desperdiçado, nenhum recurso desperdiçado, nenhum momento desperdiçado, nenhuma pessoa desperdiçada."</p><cite>Dan Charnas — O Grande Ideal do Livro</cite></div>
+        <ul>
+          <li>Escoffier reduzia o desperdício apoiando as Irmãzinhas dos Pobres de Londres — convertendo sobras em valor social e reduzindo custos operacionais.</li>
+          <li>Dogen: <em>"Não deixe nem um grão de arroz se perder."</em></li>
+          <li>O movimento equilibrado (Ingrediente 2) é aproveitamento total em ação: um único gesto serve a múltiplas funções.</li>
+          <li>O exemplo do metrô: a criança de 5 anos que sabe exatamente onde se sentar na plataforma para sair na escada certa no destino combina primeiros movimentos, movimento equilibrado e finalização de ações. Isso é mise-en-place.</li>
+        </ul>
+      </div></div>
+      <div class="isec"><div class="isl">Fora da Cozinha</div><div class="it2"><ul>
+        <li>Valorizar espaço, tempo, energia, recursos e pessoas — tratar cada um como finito e precioso.</li>
+        <li>Reutilizar erros como dados de melhoria (loop com Ingrediente 9 — Inspecionar e Corrigir).</li>
+        <li>Reuniões e deslocamentos como oportunidades de processo (loop com Ingrediente 4 — Primeiros Movimentos).</li>
+        <li>Nunca desperdiçar uma pausa, uma espera ou um tempo de trânsito sem colocar algum processo de processo em andamento.</li>
+      </ul></div></div>
+      <div class="rb"><div class="rbl">Receita para o Sucesso</div><div class="rbt">"Nenhum espaço, movimento, recurso, momento ou pessoa desperdiçados. Tudo tem valor."</div></div>
+    </div></div>
+  </div>
+
+  </div><!-- /igrid -->
+</section>
+
+<!-- ══ SEÇÃO 3: SISTEMA WORK CLEAN ══ -->
+<section id="sistema" class="sec">
+  <div class="sh2">
+    <div class="pl">Terceiro Prato</div>
+    <h2 class="st2">O Sistema Work Clean</h2>
+    <p class="sd">O mise-en-place traduzido em sistema prático para o mundo contemporâneo — com vocabulário próprio, um ritual diário inviolável e três compromissos fundadores.</p>
+  </div>
+
+  <!-- VOCABULÁRIO -->
+  <div id="vocabulario" class="sub">
+    <h3 class="subt"><span class="n">3.1</span>Vocabulário do Sistema</h3>
+    <p>O Work Clean define um vocabulário preciso para substituir as categorias confusas da gestão convencional — lista de tarefas, agenda, prioridades, projetos — por conceitos operacionalmente distintos:</p>
+    <div class="voc">
+      <div class="vc">
+        <div class="vcn">A</div>
+        <div class="vct">Ações</div>
+        <div class="vce">Actions — Seus Ingredientes</div>
+        <div class="vcd"><p>Tudo o que fazemos é uma Ação: pensar, escrever, correspondências, procedimentos, recados, reuniões, tarefas domésticas.</p><p>Não há distinção entre tarefa e compromisso — ambos são Ações. Ambos consomem seu tempo e exigem sua presença.</p><ul><li><strong>Agendadas:</strong> têm hora e data no calendário</li><li><strong>Não agendadas:</strong> na lista de ações sem horário fixo</li></ul></div>
+      </div>
+      <div class="vc">
+        <div class="vcn">M</div>
+        <div class="vct">Missões</div>
+        <div class="vce">Missions — Seu Menu</div>
+        <div class="vcd"><p>A razão de ser das Ações. Grandes objetivos com horizonte de 1 ano ou mais.</p><p>Exemplo: "Estabelecer nova empresa" é Missão. "Terminar apresentação para investidores" é uma Ação dentro dessa Missão.</p><ul><li>Organize em três áreas: <strong>Trabalho / Família / Eu</strong> (à la Chef Eric Ripert)</li><li>Cada Missão começa com um verbo</li><li>Número ideal: ~10 ativas. O autor tem 13 — "são demais"</li><li>Quando não conseguimos dizer "não" ou "depois", nossas capacidades dizem por nós</li></ul></div>
+      </div>
+      <div class="vc">
+        <div class="vcn">P</div>
+        <div class="vct">Primeiros e Segundos Planos</div>
+        <div class="vce">Frontburner / Backburner — Suas Receitas</div>
+        <div class="vcd"><p><strong>Primeiro Plano (Frontburner):</strong> a primeira Ação necessária para avançar em uma Missão agora. Recebe sua atenção imediata.</p><p><strong>Segundos Planos (Backburners):</strong> todas as Ações seguintes para cada Missão — em espera.</p><ul><li>Número de Primeiros Planos = número de Missões. 10 Missões = 10 tarefas ativas — não 240</li><li>Quando um Primeiro Plano é concluído, o Segundo Plano imediato sobe automaticamente</li><li>Sequência é o que importa — não importância abstrata</li></ul></div>
+      </div>
+      <div class="vc">
+        <div class="vcn">R</div>
+        <div class="vct">Rotinas</div>
+        <div class="vce">Routines — Seu Mise-en-Place para o Tempo</div>
+        <div class="vcd"><p>Compartimentos de tempo recorrentes na agenda — não são Ações, mas os recipientes onde as Ações são colocadas. Como as "bandejas de nove peças" vazias do cozinheiro.</p><ul><li><strong>Tempo Pessoal:</strong> saúde, bem-estar, família, deslocamento — inegociáveis, agendadas primeiro</li><li><strong>Tempo de Reuniões:</strong> compromissos, conferências, telefonemas</li><li><strong>Tempo Imersivo:</strong> blocos para trabalho profundo e focado</li><li><strong>Tempo de Processo:</strong> e-mails, ligações, formulários — agrupados por tipo. <strong>Limitar é tão importante quanto agendar</strong></li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEEZE DIÁRIO -->
+  <div id="meeze" class="sub">
+    <h3 class="subt"><span class="n">3.2</span>O Meeze Diário</h3>
+    <p>O <em>mise-en-place</em> pessoal para o dia de trabalho. <strong>30 minutos por dia — tão inegociável quanto tomar banho.</strong> À noite (ao final do dia atual — "o amanhã começa hoje") ou de manhã, dependendo do tipo de chef que você é.</p>
+    <p>Por que 30 minutos: menos não é compromisso sério o suficiente. Mais começa a parecer desequilibrado — e pode acomodar maus hábitos em vez de confrontá-los.</p>
+    <div class="msteps">
+
+      <div class="ms">
+        <div class="msn">1</div>
+        <div class="msc">
+          <div class="mst">~15 minutos</div>
+          <div class="mstt">Limpe Sua Estação</div>
+          <div class="msb">
+            <p><strong>A) Esvazie e registre as entradas físicas:</strong></p>
+            <ul>
+              <li>Carteira → recibos e cartões para a caixa de entrada da mesa</li>
+              <li>Bolsa/mochila → esvazie, registre o que precisa de ação, devolva o resto, jogue fora o inútil</li>
+              <li>Mesa de trabalho → varra por post-its e papéis soltos → caixa de entrada</li>
+              <li>Caixa de entrada da mesa → processe tudo: registrar na Lista de Ações / arquivar / descartar</li>
+              <li>Caderno → transferir lembretes para a Lista de Ações ou calendário</li>
+            </ul>
+            <p><strong>B) Limpe e registre as entradas digitais:</strong></p>
+            <ul>
+              <li>E-mail → varrer, sinalizar os que precisam de ação, arquivar todos, abrir a pasta Sinalizados, registrar nas ferramentas de planejamento, remover sinalizações</li>
+              <li>Caixa postal → verificar mensagens de voz, registrar, deletar</li>
+              <li>Mensagens de texto → revisar pedidos e promessas, registrar</li>
+              <li>Software corporativo, notas, redes sociais → copiar e colar itens de ação</li>
+              <li>Janelas de navegador abertas → registrar e fechar</li>
+              <li>Fotos digitais tiradas como lembretes → registrar</li>
+            </ul>
+            <p><strong>C) Arrume a Mesa:</strong></p>
+            <ul>
+              <li>Fisicamente: kichiri (arrumação geométrica), limpar com papel-toalha úmido</li>
+              <li>Digitalmente: arquivar documentos soltos, fechar aplicativos em segundo plano</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="ms">
+        <div class="msn">2</div>
+        <div class="msc">
+          <div class="mst">~5 minutos</div>
+          <div class="mstt">Afie Suas Ferramentas</div>
+          <div class="msb">
+            <ul>
+              <li><strong>Ajuste o calendário:</strong> reagende o que não aconteceu, desmarque o que não vai reagendar, revise as Rotinas</li>
+              <li><strong>Ajuste a Lista de Ações:</strong> atribua cada nova Ação a uma Missão, reordene os Primeiros Planos adequados, reorganize os Segundos Planos em sequência lógica</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="ms">
+        <div class="msn">3</div>
+        <div class="msc">
+          <div class="mst">~10 minutos</div>
+          <div class="mstt">Planeje o Dia</div>
+          <div class="msb">
+            <ul>
+              <li>Liste Ações e Rotinas já agendadas + o que quer adicionar</li>
+              <li>Identifique: imersivas (30min a horas) vs. processo (rápidas, agrupáveis)</li>
+              <li>Estime horas disponíveis com realismo</li>
+              <li>Agende novas Ações com 3 objetivos: maximizar tarefas Primeiros Planos; equilibrar imersivo/processo; ficar abaixo do Ponto Meeze</li>
+              <li>Opcional: linha do tempo diária analógica em post-it. O tamanho do post-it + caligrafia = limitador natural do Ponto Meeze</li>
+              <li><strong>Não sobrecarregue:</strong> deixe espaços antes e depois de reuniões. Coco Chanel: "Antes de sair, olhe no espelho e tire uma coisa."</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="ms">
+        <div class="msn">4</div>
+        <div class="msc">
+          <div class="mst">Sem tempo fixo</div>
+          <div class="mstt">Reúna os Recursos</div>
+          <div class="msb">
+            <ul>
+              <li>Arrume a bolsa para o dia seguinte</li>
+              <li>Verifique a previsão do tempo</li>
+              <li>Separe roupas se necessário</li>
+              <li>Minimize o que precisa ser decidido na manhã seguinte — cada decisão eliminada é energia preservada</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- UM DIA ORGANIZADO -->
+  <div id="dia" class="sub">
+    <h3 class="subt"><span class="n">3.3</span>Um Dia de Trabalho Organizado</h3>
+    <p>O ciclo completo do profissional organizado — da preparação noturna à retomada no fim do dia:</p>
+    <div class="df">
+      <div class="dp">
+        <div class="dph"><div class="dpt">Ciclo 01</div><div class="dptt">Noite → Preparação</div></div>
+        <div class="dpb"><ul>
+          <li>Meeze Diário como prática espiritual</li>
+          <li>Encerrar o dia atual completamente</li>
+          <li>Preparar o dia seguinte com clareza</li>
+          <li>Reunir recursos e minimizar decisões matinais</li>
+          <li>"O amanhã começa hoje, ao meio-dia" (Dogen)</li>
+        </ul></div>
+      </div>
+      <div class="dp">
+        <div class="dph"><div class="dpt">Ciclo 02</div><div class="dptt">Manhã → Processo</div></div>
+        <div class="dpb"><ul>
+          <li>Cumprimentar o Dia: rotinas pessoais (meditação, exercício, café)</li>
+          <li>Check-in Matinal: verificar programação e fluxos vitais</li>
+          <li>Executar checklists de saída (acrônimo pessoal para itens que você esquece)</li>
+          <li>Chegar cedo — honrar horários de início</li>
+          <li>Tempo de Processo inicial (~30 min): e-mails que colocam processos em andamento</li>
+          <li>Meeze de Transição (1-5 min) entre cada tarefa</li>
+        </ul></div>
+      </div>
+      <div class="dp">
+        <div class="dph"><div class="dpt">Ciclo 03</div><div class="dptt">Tarde → Presença</div></div>
+        <div class="dpb"><ul>
+          <li>Reagindo a Gatilhos: alarme por hora para verificar e-mails mesmo em sessão imersiva</li>
+          <li>Amarrando Pontas: comunicar atraso, definir ponto de parada, agendar retomada</li>
+          <li>Triagem: limpar o calendário do menos crucial quando surge o urgente</li>
+          <li>A Correria: respirar, levantar, alongar — desacelerar para acertar</li>
+          <li>O Erro: usar o processo para remediar, criar Rotina para o que "não há tempo"</li>
+          <li>Voltar ao Meeze Diário para encerrar o ciclo</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OS 3 COMPROMISSOS -->
+  <div id="compromissos" class="sub">
+    <h3 class="subt"><span class="n">3.4</span>Os Três Compromissos do Trabalho Organizado</h3>
+    <div class="comms">
+      <div class="comm">
+        <div class="commn">I</div>
+        <div class="commt">Comprometimento com a Preparação</div>
+        <div class="commb">
+          <p>Tratar o Meeze Diário como prática espiritual inviolável — como ioga, tai chi, oração.</p>
+          <ul>
+            <li>40 dias de prática ininterrupta para quebrar um hábito antigo</li>
+            <li>66 dias médios para automatizar (estudo 2009)</li>
+            <li>120 dias para <em>se tornar</em> o hábito</li>
+            <li>Se pular um dia nos primeiros 40: começar de novo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="comm">
+        <div class="commn">II</div>
+        <div class="commt">Comprometimento com um Processo que Torna Melhor</div>
+        <div class="commb">
+          <p>Produtividade ≠ excelência. Produtividade é trabalhar duro. Excelência é ter trabalho organizado.</p>
+          <ul>
+            <li>Perigo dos <em>fetichistas de processo</em>: produtividade a qualquer custo</li>
+            <li>Perigo dos <em>evasores de processo</em>: criativos que rejeitam qualquer regra</li>
+            <li>O produto do compromisso certo é uma verdadeira ética de trabalho — que inclui ética</li>
+          </ul>
+        </div>
+      </div>
+      <div class="comm">
+        <div class="commn">III</div>
+        <div class="commt">Comprometimento com a Presença</div>
+        <div class="commb">
+          <p><em>Keizo-ku</em> (japonês): aparecer e permanecer presente fisicamente. E muito mais:</p>
+          <ul>
+            <li>Presença mental: tornar-se um com o trabalho e com os companheiros</li>
+            <li>Presença como escuta: onde estão os olhos, o corpo, a mente enquanto você ouve?</li>
+            <li>Intencionalidade: quando dizer "sim", que seja sim. Quando dizer "11h30", que seja 11h30</li>
+            <li>Discrição: "ligado" ou "desligado". Onde quer que esteja, esteja lá por inteiro</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FERRAMENTAS -->
+  <div id="ferramentas" class="sub">
+    <h3 class="subt"><span class="n">3.5</span>Ferramentas Físicas e Digitais</h3>
+    <div class="tools2">
+      <div class="toolc">
+        <div class="toolt">Ferramentas Físicas</div>
+        <ul class="toolb">
+          <li><strong>Estação de trabalho com mobilidade:</strong> sentar, levantar, mover — não ficar preso numa postura</li>
+          <li><strong>Caixa de entrada e caixa de saída:</strong> esvaziadas pelo menos uma vez por dia</li>
+          <li><strong>Lista de Ações + Calendário:</strong> dois documentos — Caixa de Entrada de Ações (captura bruta) + Lista de Ações (categorizada por Missão)</li>
+          <li><strong>Caixa/gaveta de arquivo + pastas + marcadores:</strong> sistema de arquivo físico funcional</li>
+          <li><strong>Toalha macia e borrifador:</strong> para limpeza de transição e reforço do Ponto Zero</li>
+        </ul>
+      </div>
+      <div class="toolc">
+        <div class="toolt">Ferramentas Digitais (Recomendações do Livro)</div>
+        <ul class="toolb">
+          <li><strong>OmniFocus:</strong> para tarefas — inbox de captura + sorting manual em ordem de marcha</li>
+          <li><strong>Google / Apple / Outlook Calendar:</strong> para calendário e Rotinas</li>
+          <li><strong>Evernote:</strong> como despensa/arquivo rodante — referências, notas, materiais</li>
+          <li style="color:var(--cop)"><strong>Alerta do livro:</strong> apps digitais não fazem milagre sem manutenção diária — "o calendário fica poluído, as listas acumulam sem apresentá-las de forma estratégica e acionável."</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SEÇÃO 4: REFERÊNCIAS ══ -->
+<section id="referencias" class="sec">
+  <div class="sh2">
+    <div class="pl">Apêndice</div>
+    <h2 class="st2">Referências para Exploração</h2>
+    <p class="sd">Obras e conceitos que dialogam com os temas do livro — pontos de partida para aprofundar cada dimensão do mise-en-place em outras tradições intelectuais. <em>Não são fontes do livro de Charnas — são balizas externas.</em></p>
+  </div>
+
+  <div class="refs">
+    <div class="rc">
+      <div class="rct">Planejamento, Tempo e Produtividade</div>
+      <div class="rg">
+        <div class="ri"><div class="ra">Stephen Covey</div><div class="rtit">Os 7 Hábitos das Pessoas Altamente Eficazes (1989) e Primeiro o Mais Importante (1994)</div><div class="rd">Citados diretamente no livro. A Matriz de Eisenhower reformulada em 4 quadrantes é a antecessora da Matriz de Entrega de Charnas.</div></div>
+        <div class="ri"><div class="ra">David Allen</div><div class="rtit">A Arte de Fazer Acontecer / Getting Things Done (2001)</div><div class="rd">Citado diretamente. O conceito de "próxima ação" ressoa com Primeiros Planos. GTD é o predecessor mais próximo do Work Clean em sistemas de captura.</div></div>
+        <div class="ri"><div class="ra">Cal Newport</div><div class="rtit">Trabalho Focado / Deep Work (2016)</div><div class="rd">Aprofunda o conceito de "tempo imersivo" — sessões de trabalho cognitivo intenso sem distrações. Newport e Charnas chegam a conclusões similares por caminhos diferentes.</div></div>
+        <div class="ri"><div class="ra">Peter Bregman</div><div class="rtit">18 Minutes (2012)</div><div class="rd">Citado pelo nome no livro. Defende o uso do calendário como ferramenta primária de realização — alinhado com a abordagem Work Clean.</div></div>
+      </div>
+    </div>
+
+    <div class="rc">
+      <div class="rct">Processo, Checklists e Sistemas de Correção</div>
+      <div class="rg">
+        <div class="ri"><div class="ra">Atul Gawande</div><div class="rtit">O Manifesto do Checklist / The Checklist Manifesto (2009)</div><div class="rd">A justificativa científica e empírica para os checklists Ler-Fazer e Fazer-Confirmar. Gawande mostra como checklists salvam vidas na medicina e na aviação.</div></div>
+        <div class="ri"><div class="ra">Matthew Syed</div><div class="rtit">Black Box Thinking (2015)</div><div class="rd">O livro de onde vem o conceito de "Pensamento de Caixa Preta" mencionado por Charnas. Desenvolve a filosofia de aprender sistematicamente com falhas.</div></div>
+      </div>
+    </div>
+
+    <div class="rc">
+      <div class="rct">Hábitos e Neurociência da Prática</div>
+      <div class="rg">
+        <div class="ri"><div class="ra">James Clear</div><div class="rtit">Hábitos Atômicos / Atomic Habits (2018)</div><div class="rd">Aprofunda a ciência da formação de hábitos — os 66 dias mencionados por Charnas têm base no mesmo corpo de pesquisa. "Sistema vs. objetivo" converge com o foco em processo do mise-en-place.</div></div>
+        <div class="ri"><div class="ra">Daniel Coyle</div><div class="rtit">O Código do Talento / The Talent Code (2009)</div><div class="rd">Desenvolve extensamente o conceito de mielinização citado por Charnas — a base neurológica de por que a prática lenta e deliberada constrói velocidade duradoura.</div></div>
+        <div class="ri"><div class="ra">Anders Ericsson</div><div class="rtit">Pico: Segredos da Nova Ciência da Expertise / Peak (2016)</div><div class="rd">A teoria da prática deliberada: a expertise não vem do talento, mas de repetição estruturada e feedback — o equivalente acadêmico do que chefs fazem na cozinha.</div></div>
+      </div>
+    </div>
+
+    <div class="rc">
+      <div class="rct">Presença, Atenção e Contemplação</div>
+      <div class="rg">
+        <div class="ri"><div class="ra">Eihei Dogen</div><div class="rtit">Tenzo Kyokun (1237)</div><div class="rd">Citado diretamente e extensamente no livro. A fonte primária da dimensão espiritual do mise-en-place — "Quando cozinhando, apenas cozinhe."</div></div>
+        <div class="ri"><div class="ra">Mihaly Csikszentmihalyi</div><div class="rtit">Flow: A Psicologia da Experiência Ideal (1990)</div><div class="rd">O conceito de "flow" é a descrição científica do que Charnas chama de presença de nível 2 — o cozinheiro tornando-se um com o trabalho.</div></div>
+      </div>
+    </div>
+
+    <div class="rc">
+      <div class="rct">Artesanato, Ofício e Excelência</div>
+      <div class="rg">
+        <div class="ri"><div class="ra">Michael Ruhlman</div><div class="rtit">The Making of a Chef (1997)</div><div class="rd">Citado diretamente. O relato mais próximo da experiência de aprender o mise-en-place na CIA — e a ponte para sua aplicação fora da cozinha.</div></div>
+        <div class="ri"><div class="ra">Anthony Bourdain</div><div class="rtit">Kitchen Confidential (2000)</div><div class="rd">Citado diretamente. Bourdain chamava o mise-en-place de sua religião. O livro mais influente na popularização do conceito para o público geral.</div></div>
+      </div>
+    </div>
+
+    <div class="rc">
+      <div class="rct">Comunicação e Liderança</div>
+      <div class="rg">
+        <div class="ri"><div class="ra">Chris Voss</div><div class="rtit">Negocie Como Se Sua Vida Dependesse Disso / Never Split the Difference (2016)</div><div class="rd">Aprofunda a escuta ativa e a comunicação em circuito fechado — a versão de negociação do "Call and Callback" de Charnas.</div></div>
+        <div class="ri"><div class="ra">Thomas Keller</div><div class="rtit">The French Laundry Cookbook (1999)</div><div class="rd">Mencionado no livro. A manifestação mais refinada do mise-en-place em formato de receitas e filosofia culinária — "Senso de Urgência" como princípio permanente.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="ft">
+  <div class="ftt">"Um chef planeja e, portanto, um chef decide o que acontece e quando." — Dan Charnas</div>
+  <div class="ftm">Compilação completa de Trabalhe com Organização (Work Clean)</div>
+</footer>
+
+</main>
+
+<script>
+function tog(el){
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.ic.open').forEach(ic => ic.classList.remove('open'));
+  if(!wasOpen) el.classList.add('open');
+}
+
+const pf = document.getElementById('pf');
+const sidebar = document.getElementById('sidebar');
+const mbtn = document.getElementById('mbtn');
+const allLinks = document.querySelectorAll('.nl a');
+
+mbtn.addEventListener('click', () => {
+  sidebar.classList.toggle('open');
+  mbtn.textContent = sidebar.classList.contains('open') ? '✕' : '☰';
+});
+
+document.querySelector('.main').addEventListener('click', () => {
+  if(sidebar.classList.contains('open')){
+    sidebar.classList.remove('open');
+    mbtn.textContent = '☰';
+  }
+});
+
+window.addEventListener('scroll', () => {
+  const s = document.documentElement.scrollTop;
+  const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  pf.style.width = (s/h*100)+'%';
+
+  let cur = '';
+  document.querySelectorAll('section[id], .sub[id]').forEach(el => {
+    if(window.scrollY >= el.offsetTop - 130) cur = el.id;
+  });
+  allLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#'+cur);
+  });
+}, {passive:true});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
+},{threshold:0.05});
+document.querySelectorAll('.sec').forEach(s => observer.observe(s));
+
+allLinks.forEach(a => {
+  a.addEventListener('click', e => {
+    if(window.innerWidth <= 768){
+      sidebar.classList.remove('open');
+      mbtn.textContent = '☰';
+    }
+  });
+});
+</script>
+</body>
+</html>
