@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engenharia Humana & Performance Operacional | Marcelo Schiavo</title>
+    <!-- Fonte minimalista e elegante do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variáveis de cores - Paleta minimalista (Preto, Branco, Cinza e um detalhe sutil) */
+        :root {
+            --bg-color: #FAFAFA;
+            --text-main: #111111;
+            --text-muted: #555555;
+            --accent: #2C2C2C;
+            --border: #EAEAEA;
+        }
+
+        /* Reset e base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Estrutura dos Slides */
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .content {
+            max-width: 800px;
+            width: 100%;
+            padding: 2rem;
+        }
+
+        /* Tipografia */
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-size: 1.125rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+
+        /* Elementos Visuais */
+        .divider {
+            width: 60px;
+            height: 4px;
+            background-color: var(--text-main);
+            margin-bottom: 2rem;
+        }
+
+        ul {
+            list-style-type: none;
+            margin-bottom: 1.5rem;
+        }
+
+        ul li {
+            font-size: 1.125rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* Assinatura da Capa */
+        .signature {
+            margin-top: 4rem;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-main);
+        }
+
+        /* Botão do CTA */
+        .btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background-color: var(--text-main);
+            color: #FFF;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #333;
+        }
+
+        .contact-info {
+            margin-top: 3rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Configuração de Impressão (Para salvar como PDF perfeitamente) */
+        @media print {
+            body {
+                background-color: #FFF;
+            }
+            .slide {
+                min-height: 100vh; /* Força cada slide a ter o tamanho de uma página A4 */
+                page-break-after: always;
+                border-bottom: none;
+                align-items: center; /* Mantém o alinhamento central na impressão */
+            }
+            .slide:last-child {
+                page-break-after: avoid;
+            }
+            .btn {
+                display: none; /* Esconde o botão na versão impressa */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Capa -->
+    <section class="slide">
+        <div class="content">
+            <div class="divider"></div>
+            <h1>Engenharia Humana &<br>Performance Operacional</h1>
+            <p class="subtitle">Como transformar o caos comportamental da sua brigada em lucro previsível e velocidade de entrega.</p>
+            <div class="signature">Marcelo Ferreira Schiavo</div>
+        </div>
+    </section>
+
+    <!-- Slide 2: O Problema -->
+    <section class="slide">
+        <div class="content">
+            <h2>O Paradoxo da Planilha</h2>
+            
+            <h3>A Dor Oculta</h3>
+            <p>Operações complexas não quebram por falta de talento na panela. Elas entram em colapso por fricção comportamental. A planilha financeira aceita tudo, mas o chão de fábrica da cozinha não.</p>
+
+            <h3>Os Sintomas</h3>
+            <ul>
+                <li>A equipe técnica é competente, mas o <i>turnover</i> é silencioso e constante.</li>
+                <li>O CMV está perfeitamente calculado, mas o desperdício por erros de comunicação no passe continua alto.</li>
+                <li>O líder passa mais tempo apagando incêndios emocionais do que focado no padrão de qualidade e inovação.</li>
+            </ul>
+
+            <h3>O Diagnóstico</h3>
+            <p>Focar exaustivamente nos números e ignorar a mente de quem opera o sistema é o maior ralo financeiro da alta gastronomia moderna.</p>
+        </div>
+    </section>
+
+    <!-- Slide 3: A Solução -->
+    <section class="slide">
+        <div class="content">
+            <h2>A Precisão Encontra o Comportamento</h2>
+            
+            <h3>O Método</h3>
+            <p>Uma abordagem híbrida que une o rigor lógico e a eliminação de passos inúteis da engenharia de processos com a regulação emocional clínica desenhada para ambientes de extrema pressão.</p>
+
+            <h3>Como Funciona</h3>
+            <p>Em vez de discursos e palestras motivacionais passageiras, aplicamos <strong>ciência de dados comportamentais</strong>. Auditamos a carga cognitiva, mapeamos o rastro físico da equipe e instalamos travas à prova de falhas (<i>Poka-Yoke</i>) diretamente no fluxo do serviço.</p>
+        </div>
+    </section>
+
+    <!-- Slide 4: Como Atuamos -->
+    <section class="slide">
+        <div class="content">
+            <h2>Como Atuamos</h2>
+            
+            <h3>1. A Auditoria Invisível (Ponto Zero)</h3>
+            <p>Entramos na sua operação no pico do serviço (sexta-feira) para medir o <strong>Custo de Fricção</strong>. Avaliamos o tempo real de ciclo da boleta, identificamos os gatilhos exatos de estresse e medimos a segurança psicológica da equipe, tudo isso sem interferir no fluxo dos pratos.</p>
+
+            <h3>2. A Intervenção (O Ensaio de Crise)</h3>
+            <p>Treinamento tático e cirúrgico realizado fora do horário de pico. Utilizamos simulações controladas (laboratório de pressão) e técnicas de memória corporal para que a equipe saiba instintivamente como se mover e se comunicar quando o caos tenta se instalar na operação.</p>
+        </div>
+    </section>
+
+    <!-- Slide 5: Entregáveis -->
+    <section class="slide">
+        <div class="content">
+            <h2>Os Seus Entregáveis</h2>
+            
+            <ul>
+                <li><strong>Dashboard de Gargalos:</strong> Mapeamento claro do custo gerado pela fricção comportamental atual.</li>
+                <li><strong>Plano de Reestruturação:</strong> Engenharia do <i>Mise-en-place</i> físico e mental da brigada.</li>
+                <li><strong>Blindagem Tática:</strong> Implementação do protocolo militar de comunicação em loop fechado (<i>Call and Callback</i>).</li>
+            </ul>
+
+            <h3>O Maior Valor</h3>
+            <p>A entrega de um ambiente blindado contra a alta rotatividade, onde o acerto se torna um processo automático e o desgaste psicológico da liderança é virtualmente zerado.</p>
+        </div>
+    </section>
+
+    <!-- Slide 6: CTA -->
+    <section class="slide">
+        <div class="content">
+            <div class="divider"></div>
+            <h2>O Próximo Passo</h2>
+            <p>Não pague mais o preço invisível da ineficiência comportamental. Vamos identificar onde o seu sistema está perdendo tração.</p>
+            
+            <a href="mailto:seu-email@exemplo.com" class="btn">Agendar Alinhamento (15 min)</a>
+
+            <div class="contact-info">
+                <p><strong>Marcelo Ferreira Schiavo</strong><br>
+                Especialista em Performance Operacional<br>
+                +55 (11) 90000-0000 | seu-email@exemplo.com</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
