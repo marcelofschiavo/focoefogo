@@ -279,9 +279,10 @@ const items = [
     section: "Operação e padrão",
     title: "Fichas Técnicas Divididas (Gerencial vs. Operacional)",
     summary: "Separação do documento financeiro do guia visual da praça.",
+    tags: ["Custo", "Padronização"], /* <-- ESTA É A LINHA QUE FALTAVA */
     explanation: "Fichas de custo são densas e difíceis de ler no calor do serviço. Criar uma versão puramente visual e direta garante que a cozinha execute o padrão sem confusão.",
     why: "Aumenta a velocidade de produção, reduz erros de interpretação de receitas no meio do serviço e facilita o treinamento de novos cozinheiros.",
-    theory: "A mesma receita possui dois 'clientes': o financeiro (que precisa de gramaturas, F.C. e custos exatos) e o cozinheiro (que precisa de etapas e visualização). Apoia-se na padronização de receitas e no controle de custo de alimentos (food cost), conceito central em Managing Service in Food and Beverage Operations, de Jack Ninemeier e David Hayes. Fichas técnicas garantem consistência de sabor, porcionamento e margem, sendo práticas recomendadas pela National Restaurant Association como base de gestão de operações gastronômicas.",
+    theory: "A mesma receita possui dois 'clientes': o financeiro (que precisa de gramaturas, F.C. e custos exatos) e o cozinheiro (que precisa de etapas e visualização). Apoia-se na padronização de receitas e no controle de custo de alimentos (food cost).",
     techniques: [
       "Manter a Ficha Gerencial no Excel/Sistema com impostos e perdas (uso restrito).",
       "Criar uma Ficha Operacional limpa (passo a passo resumido e foto do empratamento).",
@@ -297,9 +298,11 @@ const items = [
   {section:'Capacitação e cultura',title:'Reuniões individuais',summary:'Criar conversas estruturadas para entender perfil, evolução e direcionamento.',tags:['Liderança','Gestão de pessoas'],explanation:'As reuniões individuais ajudam a tirar a gestão do campo apenas reativo. Elas permitem compreender cada pessoa com mais profundidade, identificar obstáculos e direcionar expectativas.',why:'Quando a liderança acompanha individualmente, há maior clareza sobre desenvolvimento, aderência de função e potencial de crescimento interno.',techniques:['Criar roteiro de conversa.','Registrar pontos recorrentes.','Definir pequenas metas de evolução.','Usar escuta ativa e feedback objetivo.'],examples:['Avaliar maturidade para assumir mais responsabilidade.','Compreender desmotivação antes que vire desligamento.','Alinhar expectativas de desempenho e postura.'],theory:'Baseia-se na Teoria da Liderança Situacional, de Paul Hersey e Kenneth Blanchard (Management of Organizational Behavior, 1969), que defende ajustar o estilo de liderança ao nível de maturidade e competência de cada colaborador, tornando reuniões individuais uma ferramenta de desenvolvimento personalizado.'},
   {section:'Capacitação e cultura',title:'Reunião coletiva da equipe',summary:'Criar um ritual recorrente de alinhamento, reconhecimento e orientação.',tags:['Comunicação','Cultura'],explanation:'A reunião coletiva funciona como um momento formal para reforçar direção, compartilhar percepções e reduzir ruídos. Ela consolida informações que, no dia a dia corrido, se perdem ou chegam distorcidas.',why:'Uma equipe alinhada entende melhor prioridades, trabalha com menos ruído e tende a responder de forma mais coesa a mudanças de operação.',techniques:['Definir frequência fixa.','Trabalhar pauta curta.','Abrir espaço para dúvidas e sugestões.','Fechar com combinados claros.'],examples:['Revisar resultados da semana.','Antecipar evento ou campanha sazonal.','Reconhecer boas práticas e corrigir desvios coletivos.'],theory:'Apoia-se nos estudos de cultura organizacional de Edgar Schein e na literatura de gestão de equipes de alto desempenho, como The Five Dysfunctions of a Team, de Patrick Lencioni (2002), que aponta comunicação franca e alinhamento coletivo como base de confiança e execução em equipe.'},
   {section:'Capacitação e cultura',title:'Integração de novos membros',summary:'Estruturar a entrada de novos profissionais para reduzir curva de adaptação.',tags:['Onboarding','Treinamento'],explanation:'A integração precisa ser planejada como parte da operação, e não improvisada. O novo membro deve conhecer padrões, espaços, lógica de serviço e expectativas mínimas antes de ser cobrado em ritmo total.',why:'Uma boa integração acelera aprendizado, reduz ansiedade, evita erros básicos e melhora retenção de pessoas.',techniques:['Criar roteiro de entrada.','Apresentar fluxos e lideranças.','Usar checklist de integração.','Acompanhar primeiros dias com tutor interno.'],examples:['Mostrar estoque, praças e pass no primeiro dia.','Entregar resumo com padrões essenciais.','Acompanhar o novo colaborador durante os primeiros serviços.'],theory:'Fundamenta-se na literatura de onboarding estruturado, especialmente no relatório Onboarding New Employees: Maximizing Success, de Talya Bauer (SHRM Foundation, 2010), que demonstra que processos de integração bem desenhados reduzem turnover e aceleram a curva de produtividade.'},
-  {section: "Capacitação e cultura",
+  {
+    section: "Capacitação e cultura",
     title: "Briefing de Serviço (Pre-shift Meeting)",
     summary: "Alinhamento tático de 5 minutos antes de abrir as portas.",
+    tags: ["Comunicação", "Liderança"], /* <-- ESTA É A LINHA QUE FALTAVA */
     explanation: "Reunião rápida e em pé com a brigada de salão e de cozinha para passar os recados vitais do dia e metas do turno.",
     why: "Evita falhas de comunicação (ex: garçom vender o que não tem na praça), foca a equipe na meta do dia e engaja o time logo na largada.",
     theory: "Comunicação assertiva de curtíssimo prazo, garantindo que toda a operação parta do mesmo ponto de informação inicial.",
@@ -327,6 +330,7 @@ const items = [
     section: "Ações comerciais",
     title: "Engenharia de Cardápio (Menu Engineering)",
     summary: "Matriz estratégica de Popularidade vs. Rentabilidade.",
+    tags: ["Estratégia", "Margem"], /* <-- ESTA É A LINHA QUE FALTAVA */
     explanation: "Em vez de intuição, os pratos são cruzados numa matriz (Estrelas, Cavalos de Batalha, Quebra-cabeças e Cães) para basear aumentos de preço, repaginação ou exclusão.",
     why: "Tira a emoção da tomada de decisão e maximiza o lucro da operação apoiando-se em dados reais de vendas (giro) e custos (margem).",
     theory: "Cruzamento da margem de contribuição (lucro bruto em $) de cada prato com seu índice de popularidade no mix de vendas.",
@@ -341,7 +345,7 @@ const items = [
       "Incentivar a venda do 'Quebra-cabeça' (alto lucro, baixa saída) na meta da brigada.",
       "Retirar ou mudar a receita do prato 'Cão' (baixo lucro, baixa saída)."
     ]
-  },
+  }
   {section:'Gestão e indicadores',title:'Mentalidade orientada a dados',summary:'Criar rotina simples de registros para embasar decisões e priorizações.',tags:['Dados','Gestão'],explanation:'A ideia não é começar com grande complexidade, mas com disciplina mínima de registro. Pequenos dados bem coletados já mudam a qualidade da decisão.',why:'Quando a gestão passa a medir, ela consegue identificar padrões, corrigir desvios e investir energia no que realmente importa.',techniques:['Definir indicadores simples.','Registrar diariamente.','Consolidar leitura semanal.','Cruzar informação operacional e comercial.'],examples:['Anotar saídas por item.','Registrar desperdício e ruptura.','Comparar movimento por dia e horário.'],theory:'Fundamenta-se no ciclo PDCA (Plan-Do-Check-Act), formalizado por William Edwards Deming em Out of the Crisis (1982), metodologia central da gestão da qualidade que preconiza decisão baseada em dados e melhoria contínua guiada por indicadores.'},
   {section:'Gestão e indicadores',title:'Controle de desperdício',summary:'Medir perdas para entender impacto em margem e eficiência.',tags:['Margem','Eficiência'],explanation:'Desperdício não é apenas sobra visível; ele aparece em compra excessiva, erro de porcionamento, validade vencida, falha de armazenamento e produção sem giro.',why:'Medir desperdício ajuda a proteger margem, melhorar compra e reduzir perda invisível que corrói resultado ao longo do tempo.',techniques:['Separar tipos de perda.','Registrar volume e causa.','Cruzar perda com categoria e período.','Atuar sobre padrões recorrentes.'],examples:['Mapear perdas por hortifruti, proteína ou sobremesa.','Registrar descarte por validade.','Comparar produção e sobra em dias similares.'],theory:'Baseia-se em gestão de food cost e em estudos de desperdício alimentar, como os publicados pela WRAP e pelo relatório Restaurant Food Waste Action Guide da ReFED (2018), que quantificam impacto direto do desperdício na margem de operações de alimentos.'},
   {section:'Gestão e indicadores',title:'Acompanhamento de produção',summary:'Observar ritmo, gargalos e capacidade para apoiar ajustes operacionais.',tags:['Produção','Capacidade'],explanation:'A proposta é acompanhar a produção com mais intenção, identificando onde a operação trava, quais etapas atrasam mais e onde estão as sobrecargas recorrentes.',why:'Entender gargalos permite ajustar escala, pré-preparo e organização da praça com muito mais precisão.',techniques:['Observar fluxo por etapa.','Registrar tempos críticos.','Mapear gargalos recorrentes.','Relacionar demanda e capacidade.'],examples:['Detectar pratos que atrasam mais.','Ajustar pré-preparo para dias específicos.','Mapear demanda que exige reforço de equipe.'],theory:'Apoia-se na Teoria das Restrições, formulada por Eliyahu Goldratt em The Goal (1984), segundo a qual toda operação possui um gargalo que limita sua capacidade total, e a gestão eficaz exige identificar e administrar esse ponto crítico continuamente.'},
@@ -358,10 +362,16 @@ const cardsBySection = {};
 for (const [sec,id] of Object.entries(grids)) { cardsBySection[id] = items.filter(i => i.section === sec); }
 
 function renderCard(item, index){
-  return `<article class="item-card" tabindex="0" role="button" aria-label="Abrir detalhes de ${item.title}">
+  // Grava a posição original do item no array principal para não errar o clique
+  const globalIndex = items.indexOf(item); 
+  
+  // Evita erros caso algum item futuramente fique sem a linha 'tags'
+  const safeTags = item.tags || []; 
+  
+  return `<article class="item-card" data-idx="${globalIndex}" tabindex="0" role="button" aria-label="Abrir detalhes de ${item.title}">
     <div class="item-top"><h3>${item.title}</h3><span class="item-index">${String(index+1).padStart(2,'0')}</span></div>
     <p>${item.summary}</p>
-    <div class="chip-row">${item.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
+    <div class="chip-row">${safeTags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
   </article>`;
 }
 
@@ -390,29 +400,34 @@ function openDetail(item){
   detailTechniques.innerHTML = item.techniques.map(v => `<li>${v}</li>`).join('');
   detailExamples.innerHTML = item.examples.map(v => `<li>${v}</li>`).join('');
   
+  // Força o modal a voltar para o topo da rolagem (Correção para celular)
+  document.querySelector('.detail-scroll').scrollTop = 0;
+  
   detailPanel.classList.add('open');
   detailPanel.setAttribute('aria-hidden', 'false');
-  
-  // Nova linha: Bloqueia a rolagem da página ao fundo
   document.body.classList.add('modal-open');
 }
 
 function closeDetail(){
   detailPanel.classList.remove('open');
   detailPanel.setAttribute('aria-hidden', 'true');
-  
-  // Nova linha: Libera a rolagem da página ao fechar
   document.body.classList.remove('modal-open');
 }
 
-document.querySelectorAll('.item-card').forEach((card, idx) => {
-  card.addEventListener('click', () => openDetail(items[idx]));
-  card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDetail(items[idx]); } });
+// Ouve os cliques puxando a posição cravada pelo data-idx (Correção de sincronia)
+document.querySelectorAll('.item-card').forEach(card => {
+  const realIndex = card.getAttribute('data-idx');
+  card.addEventListener('click', () => openDetail(items[realIndex]));
+  card.addEventListener('keydown', e => { 
+    if (e.key === 'Enter' || e.key === ' ') { 
+      e.preventDefault(); 
+      openDetail(items[realIndex]); 
+    } 
+  });
 });
 
 document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeDetail));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
-
 
 </script>
 </body>
