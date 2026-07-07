@@ -394,12 +394,10 @@ function openDetail(item){
   detailTechniques.innerHTML = item.techniques.map(v => `<li>${v}</li>`).join('');
   detailExamples.innerHTML = item.examples.map(v => `<li>${v}</li>`).join('');
   
-  // --- A LINHA NOVA É ESTA AQUI ABAIXO ---
-  // Localiza a área de rolagem interna do modal e força ela a voltar para a posição 0 (topo)
-  document.querySelector('.detail-scroll').scrollTop = 0;
-  
   detailPanel.classList.add('open');
   detailPanel.setAttribute('aria-hidden', 'false');
+  
+  // Nova linha: Bloqueia a rolagem da página ao fundo
   document.body.classList.add('modal-open');
 }
 
