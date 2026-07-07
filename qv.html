@@ -123,6 +123,33 @@
     .muted{color:var(--color-text-faint)}
     @media (max-width:980px){.hero-card,.summary-grid,.detail-grid,.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.section-head{flex-direction:column;align-items:flex-start}.detail-dialog{height:calc(100vh - 24px);margin:12px;border-radius:24px}}
     @media (max-width:720px){.container{padding:0 16px}.hero h2{max-width:none}.stats{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.brand-mark{width:54px;height:54px;font-size:1.5rem}.detail-header{padding:20px 18px 16px}.detail-scroll{padding:18px 18px 22px}.detail-dialog{height:calc(100vh - 16px)}}
+  
+  /* Bloqueia o scroll do body quando o modal está aberto */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Suaviza a entrada do painel e do backdrop */
+.detail-panel {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.detail-panel.open {
+  opacity: 1;
+  visibility: visible;
+  display: block; /* Mantenha o display block se preferir, mas visibilidade gerencia a animação */
+}
+
+.detail-dialog {
+  transform: translateY(20px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.detail-panel.open .detail-dialog {
+  transform: translateY(0);
+}
   </style>
 </head>
 <body>
@@ -179,7 +206,7 @@
           <p class="muted">Visão consolidada para orientar a conversa de priorização.</p>
           <div class="stats">
             <div class="stat"><strong>6</strong><span>Frentes</span></div>
-            <div class="stat"><strong>24+</strong><span>Possibilidades</span></div>
+            <div class="stat"><strong>26+</strong><span>Possibilidades</span></div>
             <div class="stat"><strong>1</strong><span>Plano</span></div>
           </div>
         </aside>
@@ -249,14 +276,49 @@
 const items = [
   {section:'Operação e padrão',title:'Ajuste de itens da cozinha',summary:'Revisar o que está quebrado, faltando ou mal posicionado para facilitar o trabalho do chef e do sous chef.',tags:['Fluxo','Rotina'],explanation:'A proposta é revisar utensílios, equipamentos menores, apoios e posicionamentos de bancada para reduzir interrupções na execução. Pequenas inadequações de layout e ferramental geram atrasos, retrabalho e fadiga desnecessária ao longo do serviço.',why:'Quando a estação está ajustada ao uso real, a operação ganha velocidade, reduz deslocamento improdutivo e aumenta a sensação de controle do time durante os picos.',techniques:['Mapear utensílios por estação e frequência de uso.','Reorganizar bancadas segundo a lógica do serviço.','Substituir itens quebrados ou improvisados.','Criar posição padrão para ferramentas críticas.'],examples:['Deixar pinças, colheres e recipientes de finalização exatamente na praça em que são usados.','Retirar da área quente utensílios de baixa recorrência.','Padronizar a posição dos recipientes de mise en place.'],theory:'Baseia-se no Sistema Toyota de Produção e no conceito de eliminação de desperdícios (“muda”), descrito por Taiichi Ohno em Toyota Production System: Beyond Large-Scale Production (1988). A lógica do lean aplicado a cozinhas defende que ferramentas, equipamentos e insumos devem estar posicionados para minimizar deslocamento e tempo perdido, aumentando produtividade sem elevar esforço da equipe.'},
   {section:'Operação e padrão',title:'Organização de estoque',summary:'Definir prateleiras, numeração, quantidades e um controle mais claro.',tags:['Estoque','Controle'],explanation:'A organização de estoque precisa permitir leitura imediata do que existe, do que falta e do que vence primeiro. O foco não é apenas arrumar, e sim transformar o estoque em uma ferramenta de decisão.',why:'Um estoque organizado reduz ruptura, excesso de compra, vencimento e improviso na produção, além de facilitar inventário e reposição.',techniques:['Separar por categoria de insumo.','Criar endereçamento por prateleira.','Aplicar controle mínimo e máximo.','Usar identificação de validade e prioridade de uso.'],examples:['Setorizar secos, refrigerados, bebidas e descartáveis.','Numerar prateleiras para acelerar contagem.','Aplicar lógica PEPS no uso dos produtos.'],theory:'Fundamenta-se na gestão de estoques e no método 5S de origem japonesa (Seiri, Seiton, Seiso, Seiketsu, Shitsuke), sistematizado por Hiroyuki Hirano em 5 Pillars of the Visual Workplace (1995), e nos princípios de gestão da cadeia de suprimentos descritos por Ronald Ballou em Business Logistics Management. A organização visual do estoque reduz perdas, facilita contagem e melhora previsibilidade de compra.'},
-  {section:'Operação e padrão',title:'Fichas técnicas',summary:'Formalizar ingredientes, gramagens, rendimento, custo e padrão de montagem.',tags:['Custo','Padronização'],explanation:'A ficha técnica é a tradução do prato em processo controlável. Ela conecta cozinha, custo, compra e treinamento em um mesmo documento.',why:'Sem ficha técnica, o prato varia demais, o custo escapa com facilidade e a operação depende excessivamente de memória individual.',techniques:['Descrever ingredientes e pesos líquidos.','Definir rendimento por receita.','Registrar custo por porção.','Padronizar finalização e montagem.'],examples:['Criar modelo único para todos os pratos.','Revisar preço quando houver aumento de insumo.','Usar a ficha no treinamento de novos cozinheiros.'],theory:'Apoia-se na padronização de receitas e no controle de custo de alimentos (food cost), conceito central em Managing Service in Food and Beverage Operations, de Jack Ninemeier e David Hayes. Fichas técnicas garantem consistência de sabor, porcionamento e margem, sendo práticas recomendadas pela National Restaurant Association como base de gestão de operações gastronômicas.'},
   {section:'Operação e padrão',title:'Padronização de uniformes',summary:'Criar uma leitura visual mais consistente e profissional da equipe.',tags:['Imagem','Padrão'],explanation:'Uniforme não é apenas estética; ele comunica ordem, cuidado, pertencimento e nível de organização da casa.',why:'A percepção visual da equipe influencia confiança, higiene percebida e qualidade atribuída pelo cliente antes mesmo do serviço acontecer.',techniques:['Definir peças por função.','Padronizar cores e nível de conservação.','Criar orientação de uso e apresentação pessoal.'],examples:['Separar uniforme de cozinha e atendimento.','Definir avental e camiseta base.','Estabelecer regra de limpeza e troca.'],theory:'Fundamenta-se na Economia da Experiência, de B. Joseph Pine II e James Gilmore (The Experience Economy, 1999), que trata elementos visuais como parte ativa da percepção de valor do cliente, e no modelo SERVQUAL de Parasuraman, Zeithaml e Berry (1988), que inclui a dimensão “tangíveis” como fator de qualidade percebida em serviços.'},
   {section:'Operação e padrão',title:'Checklist de abertura e fechamento',summary:'Padronizar o que deve ser conferido no início e no fim do expediente.',tags:['Rotina','Confiabilidade'],explanation:'O checklist garante que itens essenciais não dependam apenas de lembrança ou boa vontade. Ele cria disciplina mínima para o básico funcionar todos os dias.',why:'Abertura e fechamento ruins geram efeito cascata: falta insumo, falha limpeza, quebra de padrão e desorganização no turno seguinte.',techniques:['Criar lista objetiva por praça.','Definir responsável por conferência.','Usar validação simples com assinatura ou marcação.'],examples:['Conferir mise en place, limpeza, temperaturas e reposição.','Validar descarte e armazenamento ao fechar.','Checar pendências para o próximo turno.'],theory:'Baseia-se no conceito de checklists como redução de falha humana em ambientes complexos, popularizado por Atul Gawande em The Checklist Manifesto (2009), com origem em práticas da aviação civil e posteriormente adaptado a saúde e operações de serviço.'},
+  {
+    section: "Operação e Padrão",
+    title: "Fichas Técnicas Divididas (Gerencial vs. Operacional)",
+    summary: "Separação do documento financeiro do guia visual da praça.",
+    explanation: "Fichas de custo são densas e difíceis de ler no calor do serviço. Criar uma versão puramente visual e direta garante que a cozinha execute o padrão sem confusão.",
+    why: "Aumenta a velocidade de produção, reduz erros de interpretação de receitas no meio do serviço e facilita o treinamento de novos cozinheiros.",
+    theory: "A mesma receita possui dois 'clientes': o financeiro (que precisa de gramaturas, F.C. e custos exatos) e o cozinheiro (que precisa de etapas e visualização). Apoia-se na padronização de receitas e no controle de custo de alimentos (food cost), conceito central em Managing Service in Food and Beverage Operations, de Jack Ninemeier e David Hayes. Fichas técnicas garantem consistência de sabor, porcionamento e margem, sendo práticas recomendadas pela National Restaurant Association como base de gestão de operações gastronômicas.",
+    techniques: [
+      "Manter a Ficha Gerencial no Excel/Sistema com impostos e perdas (uso restrito).",
+      "Criar uma Ficha Operacional limpa (passo a passo resumido e foto do empratamento).",
+      "Plastificar e afixar as Fichas Operacionais em suas respectivas praças."
+    ],
+    examples: [
+      "Ficha Gerencial: Filé (F.C. 1.3, custo por porção R$42,50, margem 60%).",
+      "Ficha Operacional: Foto do prato -> 200g filé -> 5 min chapa -> finalizar com flor de sal."
+    ]
+  },
   {section:'Capacitação e cultura',title:'Alongamento e ensino de técnicas',summary:'Criar momentos curtos de preparação corporal e reforço técnico antes do serviço.',tags:['Treino','Ritual'],explanation:'A ideia é usar pequenos rituais antes da operação para ativar o time, reduzir tensão física e reforçar fundamentos técnicos com constância.',why:'Rituais curtos ajudam a equipe a entrar no serviço mais focada, mais alinhada e com menor risco de erro por dispersão.',techniques:['Fazer preparação de 5 a 10 minutos.','Revisar um fundamento por encontro.','Usar demonstração prática e repetição guiada.'],examples:['Treinar corte, ponto, montagem ou finalização.','Fazer alongamento de ombros e braços antes da praça.','Reforçar padrão de empratamento do dia.'],theory:'Apoia-se na teoria da prática deliberada, desenvolvida por Anders Ericsson em Peak: Secrets from the New Science of Expertise (2016), segundo a qual habilidades técnicas se consolidam por repetição supervisionada, feedback imediato e progressão gradual de dificuldade, aplicável diretamente ao treinamento de cozinha.'},
   {section:'Capacitação e cultura',title:'Formação da equipe',summary:'Desenvolver repertório técnico e comportamental de forma contínua.',tags:['Equipe','Aprendizado'],explanation:'A formação não deve ficar restrita a correções pontuais. A proposta é construir uma lógica contínua de desenvolvimento, conectando técnica, postura, linguagem e entendimento da proposta da casa.',why:'Equipes mais preparadas operam com menos improviso, entregam experiência mais consistente e sustentam crescimento com menor dependência de uma única liderança.',techniques:['Criar trilha básica por função.','Mapear competências essenciais.','Fazer reciclagens periódicas.','Combinar treino técnico e comportamental.'],examples:['Definir o que um cozinheiro precisa dominar em 30, 60 e 90 dias.','Treinar atendimento em conjunto com a lógica do serviço.','Criar pauta mensal de desenvolvimento interno.'],theory:'Fundamenta-se na teoria da aprendizagem situada, de Jean Lave e Etienne Wenger (Situated Learning: Legitimate Peripheral Participation, 1991), que descreve como competência se constrói dentro de comunidades de prática reais, e nos estudos de cultura organizacional de Edgar Schein (Organizational Culture and Leadership, 1985).'},
   {section:'Capacitação e cultura',title:'Reuniões individuais',summary:'Criar conversas estruturadas para entender perfil, evolução e direcionamento.',tags:['Liderança','Gestão de pessoas'],explanation:'As reuniões individuais ajudam a tirar a gestão do campo apenas reativo. Elas permitem compreender cada pessoa com mais profundidade, identificar obstáculos e direcionar expectativas.',why:'Quando a liderança acompanha individualmente, há maior clareza sobre desenvolvimento, aderência de função e potencial de crescimento interno.',techniques:['Criar roteiro de conversa.','Registrar pontos recorrentes.','Definir pequenas metas de evolução.','Usar escuta ativa e feedback objetivo.'],examples:['Avaliar maturidade para assumir mais responsabilidade.','Compreender desmotivação antes que vire desligamento.','Alinhar expectativas de desempenho e postura.'],theory:'Baseia-se na Teoria da Liderança Situacional, de Paul Hersey e Kenneth Blanchard (Management of Organizational Behavior, 1969), que defende ajustar o estilo de liderança ao nível de maturidade e competência de cada colaborador, tornando reuniões individuais uma ferramenta de desenvolvimento personalizado.'},
   {section:'Capacitação e cultura',title:'Reunião coletiva da equipe',summary:'Criar um ritual recorrente de alinhamento, reconhecimento e orientação.',tags:['Comunicação','Cultura'],explanation:'A reunião coletiva funciona como um momento formal para reforçar direção, compartilhar percepções e reduzir ruídos. Ela consolida informações que, no dia a dia corrido, se perdem ou chegam distorcidas.',why:'Uma equipe alinhada entende melhor prioridades, trabalha com menos ruído e tende a responder de forma mais coesa a mudanças de operação.',techniques:['Definir frequência fixa.','Trabalhar pauta curta.','Abrir espaço para dúvidas e sugestões.','Fechar com combinados claros.'],examples:['Revisar resultados da semana.','Antecipar evento ou campanha sazonal.','Reconhecer boas práticas e corrigir desvios coletivos.'],theory:'Apoia-se nos estudos de cultura organizacional de Edgar Schein e na literatura de gestão de equipes de alto desempenho, como The Five Dysfunctions of a Team, de Patrick Lencioni (2002), que aponta comunicação franca e alinhamento coletivo como base de confiança e execução em equipe.'},
   {section:'Capacitação e cultura',title:'Integração de novos membros',summary:'Estruturar a entrada de novos profissionais para reduzir curva de adaptação.',tags:['Onboarding','Treinamento'],explanation:'A integração precisa ser planejada como parte da operação, e não improvisada. O novo membro deve conhecer padrões, espaços, lógica de serviço e expectativas mínimas antes de ser cobrado em ritmo total.',why:'Uma boa integração acelera aprendizado, reduz ansiedade, evita erros básicos e melhora retenção de pessoas.',techniques:['Criar roteiro de entrada.','Apresentar fluxos e lideranças.','Usar checklist de integração.','Acompanhar primeiros dias com tutor interno.'],examples:['Mostrar estoque, praças e pass no primeiro dia.','Entregar resumo com padrões essenciais.','Acompanhar o novo colaborador durante os primeiros serviços.'],theory:'Fundamenta-se na literatura de onboarding estruturado, especialmente no relatório Onboarding New Employees: Maximizing Success, de Talya Bauer (SHRM Foundation, 2010), que demonstra que processos de integração bem desenhados reduzem turnover e aceleram a curva de produtividade.'},
+  {
+    section: "Capacitação e Cultura",
+    title: "Briefing de Serviço (Pre-shift Meeting)",
+    summary: "Alinhamento tático de 5 minutos antes de abrir as portas.",
+    explanation: "Reunião rápida e em pé com a brigada de salão e de cozinha para passar os recados vitais do dia e metas do turno.",
+    why: "Evita falhas de comunicação (ex: garçom vender o que não tem na praça), foca a equipe na meta do dia e engaja o time logo na largada.",
+    theory: "Comunicação assertiva de curtíssimo prazo, garantindo que toda a operação parta do mesmo ponto de informação inicial.",
+    techniques: [
+      "Reunião obrigatória em pé (Stand-up).",
+      "Duração máxima de 5 a 10 minutos cravados.",
+      "Repassar 'Itens 86' (produtos que estão em falta).",
+      "Definir e anunciar a meta de vendas ou de foco para o turno."
+    ],
+    examples: [
+      "Avisar: 'Hoje o purê é de mandioquinha, não temos batata'.",
+      "Focar: 'Nossa meta é zerar o estoque do rótulo X, ofereçam como primeira opção'.",
+      "Aviso VIP: 'A mesa 4 hoje é o aniversário de um cliente muito assíduo, caprichar'."
+    ]
+  },
   {section:'Experiência do cliente',title:'Pesquisa de satisfação',summary:'Ouvir clientes de forma mais estruturada para identificar padrões de percepção.',tags:['Cliente','Feedback'],explanation:'A proposta é transformar opinião dispersa em informação utilizável. Em vez de depender apenas de comentários soltos, a casa pode organizar escuta com método.',why:'Sem escuta estruturada, decisões sobre experiência tendem a ser intuitivas demais e menos precisas.',techniques:['Criar perguntas curtas.','Separar experiência de produto, atendimento e ambiente.','Consolidar respostas por recorrência.','Cruzar percepções com período e contexto.'],examples:['Perguntar sobre comida, atendimento e ambiente.','Analisar menções a tempo de espera.','Cruzar elogios e críticas por período.'],theory:'Baseia-se no modelo SERVQUAL de Parasuraman, Zeithaml e Berry (1988) para mensuração de qualidade percebida em serviços, e na metodologia Net Promoter Score de Fred Reichheld (The Ultimate Question 2.0, 2011), amplamente usada para transformar percepção de cliente em indicador acionável.'},
   {section:'Experiência do cliente',title:'Ajuste da apresentação dos pratos',summary:'Melhorar acabamento, montagem e padrão visual.',tags:['Valor percebido','Padrão'],explanation:'Apresentação é uma linguagem silenciosa do restaurante. Antes de provar, o cliente já interpreta intenção, cuidado e nível de valor por meio da montagem.',why:'Melhor apresentação aumenta percepção de qualidade, diferenciação e coerência entre preço cobrado e entrega percebida.',techniques:['Definir padrão visual por prato.','Revisar utensílios de montagem.','Treinar finalização.','Criar referência visual para conferência.'],examples:['Padronizar posição de elementos no prato.','Eliminar montagens com excesso de informação.','Criar foto de referência da finalização correta.'],theory:'Apoia-se na gastrofísica, campo estudado por Charles Spence em Gastrophysics: The New Science of Eating (2017), que demonstra cientificamente como aparência, cor e disposição visual do prato alteram a percepção de sabor e o valor atribuído pelo cliente antes mesmo da primeira garfada.'},
   {section:'Experiência do cliente',title:'Qualidade no atendimento',summary:'Ajustar postura, ritmo e clareza de comunicação com o cliente.',tags:['Atendimento','Hospitalidade'],explanation:'A experiência de atendimento não depende apenas de simpatia. Ela envolve ritmo, leitura de contexto, domínio da informação e sintonia entre salão e cozinha.',why:'Atendimento consistente fortalece confiança, melhora lembrança da experiência e aumenta chance de retorno e recomendação.',techniques:['Treinar abordagem e escuta.','Revisar linguagem de serviço.','Padronizar repasse de informação.','Alinhar salão e cozinha em momentos críticos.'],examples:['Orientar apresentação de pratos e carta.','Treinar resposta a atraso ou ruptura.','Criar padrão para despedida e convite ao retorno.'],theory:'Fundamenta-se na Cadeia de Lucro em Serviços (Service-Profit Chain), de James Heskett, Earl Sasser e Leonard Schlesinger, que liga diretamente satisfação da equipe, qualidade do atendimento, satisfação do cliente e resultado financeiro.'},
@@ -265,6 +327,25 @@ const items = [
   {section:'Ações comerciais',title:'Promoções',summary:'Usar ofertas pontuais com lógica de margem, fluxo e percepção de valor.',tags:['Comercial','Preço'],explanation:'Promoção não deve ser entendida apenas como desconto. A proposta é pensar ofertas como ferramenta estratégica para ativar horários, aumentar ocupação e estimular experimentação.',why:'Quando mal feita, a promoção destrói valor percebido; quando bem construída, aumenta giro e atratividade sem comprometer posicionamento.',techniques:['Criar combos coerentes.','Usar ofertas em horários específicos.','Vincular promoções a itens de boa margem.','Testar formatos e medir resposta.'],examples:['Condição especial em horários de menor fluxo.','Combinação de entrada e taça de vinho.','Menu executivo em dias específicos.'],theory:'Fundamenta-se em revenue management aplicado a restaurantes, área estudada por Sheryl Kimes em publicações da Cornell Hospitality Quarterly, que trata precificação e ofertas como ferramentas para equilibrar ocupação, ticket médio e rentabilidade em horários de diferentes demandas.'},
   {section:'Ações comerciais',title:'Campanhas sazonais',summary:'Usar datas, clima e ocasiões para renovar comunicação e gerar motivo de visita.',tags:['Calendário','Campanha'],explanation:'Campanhas sazonais ajudam a tornar a marca mais viva ao longo do ano. Elas criam narrativas novas sem exigir mudança estrutural permanente.',why:'O calendário bem explorado gera recorrência de comunicação, ativa desejo e aumenta as oportunidades de visita.',techniques:['Planejar ações por estação.','Criar menus ou combos temporários.','Alinhar campanha visual e operação.','Divulgar com antecedência.'],examples:['Campanha de inverno com caldos e vinhos.','Ação para datas românticas.','Semana temática com foco em determinado produto.'],theory:'Baseia-se nos princípios de planejamento de marketing e sazonalidade de consumo descritos por Philip Kotler e Kevin Keller em Marketing Management, referência clássica sobre calendarização de campanhas e adequação de oferta a momentos de maior propensão de compra.'},
   {section:'Ações comerciais',title:'Marketing com brindes',summary:'Criar pequenos estímulos relacionais para gerar engajamento e lembrança.',tags:['Relacionamento','Engajamento'],explanation:'Brindes simbólicos funcionam melhor quando são coerentes com a marca e entregues como extensão da experiência, e não como artifício promocional excessivo.',why:'Pequenos gestos podem aumentar lembrança, reforçar simpatia e estimular resposta do cliente de forma leve.',techniques:['Escolher brindes de baixo custo e alta aderência.','Associar brinde à experiência ou feedback.','Usar ação de forma pontual.','Medir resposta e percepção.'],examples:['Mini cortesia ao final da experiência.','Pequeno benefício em retorno futuro.','Lembrança simples ligada ao universo do vinho.'],theory:'Apoia-se no marketing de relacionamento, conceito desenvolvido por Christian Grönroos em Service Management and Marketing, que defende que pequenos gestos de reciprocidade fortalecem vínculo emocional e retenção, alinhado também à norma da reciprocidade descrita por Cialdini.'},
+  {
+    section: "Ações Comerciais",
+    title: "Engenharia de Cardápio (Menu Engineering)",
+    summary: "Matriz estratégica de Popularidade vs. Rentabilidade.",
+    explanation: "Em vez de intuição, os pratos são cruzados numa matriz (Estrelas, Cavalos de Batalha, Quebra-cabeças e Cães) para basear aumentos de preço, repaginação ou exclusão.",
+    why: "Tira a emoção da tomada de decisão e maximiza o lucro da operação apoiando-se em dados reais de vendas (giro) e custos (margem).",
+    theory: "Cruzamento da margem de contribuição (lucro bruto em $) de cada prato com seu índice de popularidade no mix de vendas.",
+    techniques: [
+      "Calcular a margem de contribuição real por prato.",
+      "Mapear o volume de vendas no período.",
+      "Classificar os itens nos quadrantes da Matriz BCG.",
+      "Tomar ação corretiva (ex: repaginar visual de itens muito lucrativos que não vendem)."
+    ],
+    examples: [
+      "Aumentar discretamente o preço do prato 'Estrela' (alto lucro, alta saída).",
+      "Incentivar a venda do 'Quebra-cabeça' (alto lucro, baixa saída) na meta da brigada.",
+      "Retirar ou mudar a receita do prato 'Cão' (baixo lucro, baixa saída)."
+    ]
+  },
   {section:'Gestão e indicadores',title:'Mentalidade orientada a dados',summary:'Criar rotina simples de registros para embasar decisões e priorizações.',tags:['Dados','Gestão'],explanation:'A ideia não é começar com grande complexidade, mas com disciplina mínima de registro. Pequenos dados bem coletados já mudam a qualidade da decisão.',why:'Quando a gestão passa a medir, ela consegue identificar padrões, corrigir desvios e investir energia no que realmente importa.',techniques:['Definir indicadores simples.','Registrar diariamente.','Consolidar leitura semanal.','Cruzar informação operacional e comercial.'],examples:['Anotar saídas por item.','Registrar desperdício e ruptura.','Comparar movimento por dia e horário.'],theory:'Fundamenta-se no ciclo PDCA (Plan-Do-Check-Act), formalizado por William Edwards Deming em Out of the Crisis (1982), metodologia central da gestão da qualidade que preconiza decisão baseada em dados e melhoria contínua guiada por indicadores.'},
   {section:'Gestão e indicadores',title:'Controle de desperdício',summary:'Medir perdas para entender impacto em margem e eficiência.',tags:['Margem','Eficiência'],explanation:'Desperdício não é apenas sobra visível; ele aparece em compra excessiva, erro de porcionamento, validade vencida, falha de armazenamento e produção sem giro.',why:'Medir desperdício ajuda a proteger margem, melhorar compra e reduzir perda invisível que corrói resultado ao longo do tempo.',techniques:['Separar tipos de perda.','Registrar volume e causa.','Cruzar perda com categoria e período.','Atuar sobre padrões recorrentes.'],examples:['Mapear perdas por hortifruti, proteína ou sobremesa.','Registrar descarte por validade.','Comparar produção e sobra em dias similares.'],theory:'Baseia-se em gestão de food cost e em estudos de desperdício alimentar, como os publicados pela WRAP e pelo relatório Restaurant Food Waste Action Guide da ReFED (2018), que quantificam impacto direto do desperdício na margem de operações de alimentos.'},
   {section:'Gestão e indicadores',title:'Acompanhamento de produção',summary:'Observar ritmo, gargalos e capacidade para apoiar ajustes operacionais.',tags:['Produção','Capacidade'],explanation:'A proposta é acompanhar a produção com mais intenção, identificando onde a operação trava, quais etapas atrasam mais e onde estão as sobrecargas recorrentes.',why:'Entender gargalos permite ajustar escala, pré-preparo e organização da praça com muito mais precisão.',techniques:['Observar fluxo por etapa.','Registrar tempos críticos.','Mapear gargalos recorrentes.','Relacionar demanda e capacidade.'],examples:['Detectar pratos que atrasam mais.','Ajustar pré-preparo para dias específicos.','Mapear demanda que exige reforço de equipe.'],theory:'Apoia-se na Teoria das Restrições, formulada por Eliyahu Goldratt em The Goal (1984), segundo a qual toda operação possui um gargalo que limita sua capacidade total, e a gestão eficaz exige identificar e administrar esse ponto crítico continuamente.'},
@@ -312,12 +393,20 @@ function openDetail(item){
   detailTheory.textContent = item.theory;
   detailTechniques.innerHTML = item.techniques.map(v => `<li>${v}</li>`).join('');
   detailExamples.innerHTML = item.examples.map(v => `<li>${v}</li>`).join('');
+  
   detailPanel.classList.add('open');
   detailPanel.setAttribute('aria-hidden', 'false');
+  
+  // Nova linha: Bloqueia a rolagem da página ao fundo
+  document.body.classList.add('modal-open');
 }
+
 function closeDetail(){
   detailPanel.classList.remove('open');
   detailPanel.setAttribute('aria-hidden', 'true');
+  
+  // Nova linha: Libera a rolagem da página ao fechar
+  document.body.classList.remove('modal-open');
 }
 
 document.querySelectorAll('.item-card').forEach((card, idx) => {
@@ -327,6 +416,8 @@ document.querySelectorAll('.item-card').forEach((card, idx) => {
 
 document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeDetail));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
+
+
 </script>
 </body>
 </html>
