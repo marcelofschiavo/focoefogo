@@ -358,11 +358,7 @@ const cardsBySection = {};
 for (const [sec,id] of Object.entries(grids)) { cardsBySection[id] = items.filter(i => i.section === sec); }
 
 function renderCard(item, index){
-  // Encontra a posição exata deste item dentro do array principal
-  const globalIndex = items.indexOf(item); 
-  
-  // Adiciona o data-idx no article para gravar a posição
-  return `<article class="item-card" data-idx="${globalIndex}" tabindex="0" role="button" aria-label="Abrir detalhes de ${item.title}">
+  return `<article class="item-card" tabindex="0" role="button" aria-label="Abrir detalhes de ${item.title}">
     <div class="item-top"><h3>${item.title}</h3><span class="item-index">${String(index+1).padStart(2,'0')}</span></div>
     <p>${item.summary}</p>
     <div class="chip-row">${item.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
@@ -409,15 +405,9 @@ function closeDetail(){
   document.body.classList.remove('modal-open');
 }
 
-document.querySelectorAll('.item-card').forEach(card => {
-  const realIndex = card.getAttribute('data-idx');
-  card.addEventListener('click', () => openDetail(items[realIndex]));
-  card.addEventListener('keydown', e => { 
-    if (e.key === 'Enter' || e.key === ' ') { 
-      e.preventDefault(); 
-      openDetail(items[realIndex]); 
-    } 
-  });
+document.querySelectorAll('.item-card').forEach((card, idx) => {
+  card.addEventListener('click', () => openDetail(items[idx]));
+  card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDetail(items[idx]); } });
 });
 
 document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeDetail));
